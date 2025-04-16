@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+
     <head>
         <meta charset="utf-8" />
 
@@ -18,11 +19,15 @@
         @filamentStyles
         @vite('resources/css/app.css')
     </head>
+    <x-layouts.navbar />
 
     <body class="antialiased">
+
         {{ $slot }}
 
+        <x-layouts.footer />
         @filamentScripts
         @vite('resources/js/app.js')
     </body>
+
 </html>
