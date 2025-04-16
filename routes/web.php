@@ -21,4 +21,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('settings/appearance', Appearance::class)->name('settings.appearance');
 });
 
+Route::view('/csereauto-flotta', 'csereauto-flotta')
+    ->name('csereauto-flotta');
+
 require __DIR__.'/auth.php';
