@@ -8,6 +8,7 @@ use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Columns\ToggleColumn;
 use Filament\Tables\Table;
 
 class AvailabilityResource extends Resource
@@ -21,18 +22,11 @@ class AvailabilityResource extends Resource
         return $form
             ->schema([
                 Forms\Components\Select::make('car_id')
-                    ->relationship('car', 'id')
+                    ->relationship('car', 'model')
                     ->required(),
-                Forms\Components\DateTimePicker::make('start_time')
-                    ->required()
-                    ->displayFormat('Y-m-d H:00') // Csak nap és óra
-                    ->format('Y-m-d H:00'), // Mentéskor is csak nap és óra
-                Forms\Components\DateTimePicker::make('end_time')
-                    ->required()
-                    ->displayFormat('Y-m-d H:00') // Csak nap és óra
-                    ->format('Y-m-d H:00'),
-                Forms\Components\Toggle::make('is_available')
+                Forms\Components\DatePicker::make('date')
                     ->required(),
+                Forms\Components\Toggle::make('is_available'),
             ]);
     }
 
@@ -40,17 +34,16 @@ class AvailabilityResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('car.id')
+                Tables\Columns\TextColumn::make('car.brand')
                     ->numeric()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('start_time')
-                    ->dateTime('Y-m-d H:00') // Csak nap és óra
+                Tables\Columns\TextColumn::make('car.model')
+                    ->numeric()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('end_time')
-                    ->dateTime('Y-m-d H:00') // Csak nap és óra
+                Tables\Columns\TextColumn::make('date')
+                    ->date()
                     ->sortable(),
-                Tables\Columns\IconColumn::make('is_available')
-                    ->boolean(),
+                ToggleColumn::make('is_available'),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
@@ -61,14 +54,27 @@ class AvailabilityResource extends Resource
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
-                //
+                Tables\Filters\Filter::make('date_range')->form([
+                    Forms\Components\DatePicker::make('start_date')
+                        ->label('Mettől')
+                        ->required(),
+                    Forms\Components\DatePicker::make('end_date')
+                        ->label('Meddig')
+                        ->required(),
+                ])->query(function ($query, array $data) {
+                    return $query->when($data['start_date'], function ($query) use ($data) {
+                        $query->where('date', '>=', $data['start_date']);
+                    })->when($data['end_date'], function ($query) use ($data) {
+                        $query->where('date', '<=', $data['end_date']);
+                    });
+                }),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+                Tables\Actions\DeleteBulkAction::make(),
                 ]),
             ]);
     }

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ReservationController;
+use App\Livewire\CarDetails;
 use App\Livewire\Settings\Appearance;
 use App\Livewire\Settings\Password;
 use App\Livewire\Settings\Profile;
@@ -31,5 +32,6 @@ Route::view('/kapcsolat', 'kapcsolat')->name('kapcsolat');
 Route::view('/szerzodesek', 'szerzodesek')->name('szerzodesek');
 
 Route::post('/reservations', [ReservationController::class, 'store'])->name('reservations.store');
+Route::get('/auto/{slug}', CarDetails::class)->name('cars.show');
 
 require __DIR__.'/auth.php';

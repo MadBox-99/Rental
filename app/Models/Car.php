@@ -5,11 +5,21 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Str;
 
 class Car extends Model
 {
     /** @use HasFactory<\Database\Factories\CarFactory> */
     use HasFactory;
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::saving(function ($car) {
+            $car->slug = Str::slug($car->brand.'-'.$car->model);
+        });
+    }
 
     protected $fillable = [
         'brand',
@@ -21,6 +31,8 @@ class Car extends Model
         'fuel',
         'color',
         'doors',
+        'slug', // Add slug to fillable fields
+        'description',
     ];
 
     public function availabilities(): HasMany

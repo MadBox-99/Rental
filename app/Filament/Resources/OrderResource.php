@@ -23,6 +23,9 @@ class OrderResource extends Resource
     {
         return $form
             ->schema([
+                Forms\Components\TextInput::make('user_id')
+                    ->required()
+                    ->numeric(),
                 Forms\Components\TextInput::make('car_id')
                     ->required()
                     ->numeric(),
@@ -45,6 +48,7 @@ class OrderResource extends Resource
                     ->required(),
                 Forms\Components\DateTimePicker::make('dropoff_time')
                     ->required(),
+                Forms\Components\TextInput::make('documents'),
             ]);
     }
 
@@ -52,6 +56,9 @@ class OrderResource extends Resource
     {
         return $table
             ->columns([
+                Tables\Columns\TextColumn::make('user_id')
+                    ->numeric()
+                    ->sortable(),
                 Tables\Columns\TextColumn::make('car_id')
                     ->numeric()
                     ->sortable(),

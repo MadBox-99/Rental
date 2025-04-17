@@ -17,9 +17,10 @@ class Order extends Model
         'customer_id',
         'pickup_location_id',
         'dropoff_location_id',
-        
+
         'start_date',
         'end_date',
+        'documents',
     ];
 
     public function car()
@@ -55,5 +56,17 @@ class Order extends Model
     public function dropoffLocation()
     {
         return $this->belongsTo(Location::class, 'dropoff_location_id');
+    }
+
+    /**
+     * Get the attributes that should be cast.
+     *
+     * @return array<string, string>
+     */
+    protected function casts(): array
+    {
+        return [
+            'documents' => 'array', // JSON oszlop a fájlok tárolására
+        ];
     }
 }

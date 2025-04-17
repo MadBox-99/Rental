@@ -3,15 +3,14 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\CarResource\Pages;
-use App\Filament\Resources\CarResource\RelationManagers;
 use App\Models\Car;
 use Filament\Forms;
+use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class CarResource extends Resource
 {
@@ -24,11 +23,17 @@ class CarResource extends Resource
         return $form
             ->schema([
                 Forms\Components\TextInput::make('brand')
-                    ->required(),
+                    ->required()
+                    ->maxLength(255),
                 Forms\Components\TextInput::make('model')
-                    ->required(),
+                    ->required()
+                    ->maxLength(255),
+                Forms\Components\TextInput::make('slug')
+                    ->required()
+                    ->maxLength(255),
                 Forms\Components\TextInput::make('transmission')
-                    ->required(),
+                    ->required()
+                    ->maxLength(255),
                 Forms\Components\TextInput::make('horsepower')
                     ->required()
                     ->numeric(),
@@ -39,12 +44,40 @@ class CarResource extends Resource
                     ->required()
                     ->numeric(),
                 Forms\Components\TextInput::make('fuel')
-                    ->required(),
+                    ->required()
+                    ->maxLength(255),
                 Forms\Components\TextInput::make('color')
-                    ->required(),
+                    ->required()
+                    ->maxLength(255),
                 Forms\Components\TextInput::make('doors')
                     ->required()
                     ->numeric(),
+                FileUpload::make('images')->
+                    label('Car Images')
+                        ->multiple()
+                        ->reorderable()
+                        ->openable()
+                        ->preserveFilenames()
+                        ->directory('cars')
+                        ->maxFiles(10)
+                        ->image(),
+                RichEditor::make('description')->toolbarButtons([
+                    'attachFiles',
+                    'blockquote',
+                    'bold',
+                    'bulletList',
+                    'codeBlock',
+                    'h2',
+                    'h3',
+                    'italic',
+                    'link',
+                    'orderedList',
+                    'redo',
+                    'strike',
+                    'underline',
+                    'undo',
+                ])->fileAttachmentsVisibility('public')
+                    ->columnSpanFull(),
             ]);
     }
 
@@ -55,6 +88,8 @@ class CarResource extends Resource
                 Tables\Columns\TextColumn::make('brand')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('model')
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('slug')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('transmission')
                     ->searchable(),

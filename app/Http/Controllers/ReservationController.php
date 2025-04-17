@@ -61,4 +61,17 @@ class ReservationController extends BaseController
 
         return view('csereauto-flotta', compact('cars'));
     }
+
+    /**
+     * Display a specific car's details.
+     *
+     * @param  int  $id
+     * @return \Illuminate\View\View
+     */
+    public function show($id)
+    {
+        $car = Car::with('availabilities')->findOrFail($id);
+
+        return view('car-details', compact('car'));
+    }
 }

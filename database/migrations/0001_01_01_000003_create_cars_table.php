@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('brand');
             $table->string('model');
+            $table->string('slug')->unique(); // Slug for brand-model
             $table->string('transmission'); // Pl. "Automata"
             $table->integer('horsepower');
             $table->integer('mileage');
@@ -23,6 +24,7 @@ return new class extends Migration
             $table->string('color');
             $table->integer('doors');
             $table->json('images')->nullable(true); // Opcióként leírás
+            $table->longText('description')->nullable(true); // Opcióként leírás
             $table->timestamps();
         });
     }
