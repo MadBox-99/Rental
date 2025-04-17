@@ -24,38 +24,39 @@
                             <tr>
                                 <th colspan="2" class="px-4 py-2 border border-gray-300">Autó Model / április, május
                                     Napok</th>
-                                @for ($i = 16; $i <= 30; $i++)
-                                    <th class="px-2 py-1 border border-gray-300">{{ $i }}</th>
-                                @endfor
-                                @for ($i = 1; $i <= 15; $i++)
-                                    <th class="px-2 py-1 border border-gray-300">{{ str_pad($i, 2, '0', STR_PAD_LEFT) }}
+                                @for ($i = 0; $i < 30; $i++)
+                                    <th class="px-2 py-1 border border-gray-300">
+                                        {{ now()->addDays($i)->format('m-d') }}
                                     </th>
                                 @endfor
                             </tr>
                         </thead>
                         <tbody>
-                            <!-- Example Row -->
-                            <tr class="bg-white hover:bg-gray-100">
-                                <td class="px-4 py-2 border border-gray-300">
-                                    <a href="https://csereautoberles.hu/wp-content/uploads/CarRentalGallery/front-1-1.png"
-                                        class="block">
-                                        <img src="https://csereautoberles.hu/wp-content/uploads/CarRentalGallery/mini_thumb_front-1-1.png"
-                                            alt="Skoda Octavia" class="h-12 mx-auto">
-                                    </a>
-                                </td>
-                                <td class="px-4 py-2 border border-gray-300">
-                                    <a href="https://csereautoberles.hu/auto-model/skoda-octavia/"
-                                        class="text-blue-600 hover:underline">Skoda Octavia</a>
-                                    <p class="text-gray-600">Rendelkezésre álló autók: Automata</p>
-                                </td>
-                                @for ($i = 1; $i <= 30; $i++)
-                                    <td
-                                        class="px-2 py-1 border border-gray-300 {{ $i % 2 == 0 ? 'bg-green-100' : 'bg-red-100' }}">
-                                        {{ $i % 2 == 0 ? '1' : '0' }}
+                            @foreach ($cars as $car)
+                                <tr class="bg-white hover:bg-gray-100">
+                                    <td class="px-4 py-2 border border-gray-300">
+                                        <a href="#" class="block">
+                                            <img src="{{ asset('images/cars/' . $car->id . '.png') }}"
+                                                alt="{{ $car->model }}" class="h-12 mx-auto">
+                                        </a>
                                     </td>
-                                @endfor
-                            </tr>
-                            <!-- Add more rows dynamically -->
+                                    <td class="px-4 py-2 border border-gray-300">
+                                        <a href="#" class="text-blue-600 hover:underline">{{ $car->brand }}
+                                            {{ $car->model }}</a>
+                                        <p class="text-gray-600">Rendelkezésre álló autók: {{ $car->transmission }}</p>
+                                    </td>
+                                    @for ($i = 0; $i < 30; $i++)
+                                        @php
+                                            $date = now()->addDays($i)->format('Y-m-d');
+                                            $availability = $car->availabilities->firstWhere('date', $date);
+                                        @endphp
+                                        <td
+                                            class="px-2 py-1 border border-gray-300 {{ $availability && $availability->is_available ? 'bg-green-100' : 'bg-red-100' }}">
+                                            {{ $availability && $availability->is_available ? '1' : '0' }}
+                                        </td>
+                                    @endfor
+                                </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>

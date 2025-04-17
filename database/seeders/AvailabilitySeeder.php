@@ -2,7 +2,8 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Availability;
+use App\Models\Car;
 use Illuminate\Database\Seeder;
 
 class AvailabilitySeeder extends Seeder
@@ -12,6 +13,17 @@ class AvailabilitySeeder extends Seeder
      */
     public function run(): void
     {
-        //
+        $cars = Car::all();
+
+        foreach ($cars as $car) {
+            for ($i = 0; $i < 30; $i++) {
+                Availability::create([
+                    'car_id' => $car->id,
+                    'date' => now()->addDays($i)->format('Y-m-d'),
+                    'hour' => rand(0, 23),
+                    'is_available' => rand(0, 1),
+                ]);
+            }
+        }
     }
 }

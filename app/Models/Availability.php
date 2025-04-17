@@ -13,13 +13,21 @@ class Availability extends Model
 
     protected $fillable = [
         'car_id',
-        'date',
-        'hour',
+
         'is_available',
+        'start_time',
+        'end_time',
     ];
 
     public function car(): BelongsTo
     {
         return $this->belongsTo(Car::class);
+    }
+
+    public function markUnavailableForOneHour(): void
+    {
+        $this->is_available = false;
+        $this->end_time = now()->addHour();
+        $this->save();
     }
 }

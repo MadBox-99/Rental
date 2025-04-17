@@ -24,8 +24,8 @@ return new class extends Migration
             $table->date('end_date')->nullable(false);
             $table->foreignIdFor(Location::class, 'pickup_location_id')->nullable(false);
             $table->foreignIdFor(Location::class, 'dropoff_location_id')->nullable(false);
-            $table->time('pickup_time')->nullable(false);
-            $table->time('dropoff_time')->nullable(false);
+            $table->dateTime('pickup_time')->nullable(false);
+            $table->dateTime('dropoff_time')->nullable(false);
 
             $table->timestamps();
         });

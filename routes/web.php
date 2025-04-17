@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ReservationController;
 use App\Livewire\Settings\Appearance;
 use App\Livewire\Settings\Password;
 use App\Livewire\Settings\Profile;
@@ -22,9 +23,13 @@ Route::middleware(['auth'])->group(function () {
 });
 
 Route::view('/csereauto-flotta', 'csereauto-flotta')->name('csereauto-flotta');
+Route::get('/csereauto-flotta', [ReservationController::class, 'availability'])->name('availability');
 Route::view('/berleti-feltetelek', 'berleti-feltetelek')->name('berleti-feltetelek');
 Route::view('/szolgaltatasaink', 'szolgaltatasaink')->name('szolgaltatasaink');
 Route::view('/csatlakozasi-lehetoseg', 'csatlakozasi-lehetoseg')->name('csatlakozasi-lehetoseg');
 Route::view('/kapcsolat', 'kapcsolat')->name('kapcsolat');
+Route::view('/szerzodesek', 'szerzodesek')->name('szerzodesek');
+
+Route::post('/reservations', [ReservationController::class, 'store'])->name('reservations.store');
 
 require __DIR__.'/auth.php';
