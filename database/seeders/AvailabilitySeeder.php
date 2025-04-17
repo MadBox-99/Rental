@@ -19,9 +19,8 @@ class AvailabilitySeeder extends Seeder
             for ($i = 0; $i < 30; $i++) {
                 Availability::create([
                     'car_id' => $car->id,
-                    'date' => now()->addDays($i)->format('Y-m-d'),
-                    'hour' => rand(0, 23),
-                    'is_available' => rand(0, 1),
+                    'date' => now()->addDays($i)->format('Y-m-d'), // Csak a napot tároljuk
+                    'is_available' => true, // Alapértelmezett elérhetőség
                 ]);
             }
         }

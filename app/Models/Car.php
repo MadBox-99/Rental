@@ -28,9 +28,15 @@ class Car extends Model
         return $this->hasMany(Availability::class);
     }
 
+    /**
+     * Get the attributes that should be cast.
+     *
+     * @return array<string, string>
+     */
     protected function casts(): array
     {
         return [
+            'images' => 'array',
             'horsepower' => 'integer',
             'mileage' => 'integer',
             'year' => 'integer',

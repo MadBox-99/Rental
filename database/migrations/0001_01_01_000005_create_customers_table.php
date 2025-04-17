@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('city')->nullable(false);
             $table->string('postal_code')->nullable(false);
             $table->string('country')->nullable(false);
+            $table->json('files')->nullable(true); // JSON oszlop a fájlok tárolására
 
             $table->timestamps();
         });

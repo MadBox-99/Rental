@@ -13,9 +13,8 @@ class Availability extends Model
 
     protected $fillable = [
         'car_id',
+        'date',
         'is_available',
-        'start_time',
-        'end_time',
     ];
 
     public function car(): BelongsTo
@@ -23,10 +22,16 @@ class Availability extends Model
         return $this->belongsTo(Car::class);
     }
 
-    public function markUnavailableForOneHour(): void
+    /**
+     * Get the attributes that should be cast.
+     *
+     * @return array<string, string>
+     */
+    protected function casts(): array
     {
-        $this->is_available = false;
-        $this->end_time = now()->addHour();
-        $this->save();
+        return [
+            'date' => 'date',
+            'is_available' => 'boolean',
+        ];
     }
 }

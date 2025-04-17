@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('fuel');
             $table->string('color');
             $table->integer('doors');
+            $table->json('images')->nullable(true); // Opcióként leírás
             $table->timestamps();
         });
     }

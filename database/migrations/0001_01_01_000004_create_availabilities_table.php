@@ -15,9 +15,8 @@ return new class extends Migration
         Schema::create('availabilities', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(Car::class)->nullable(false);
-            $table->dateTime('start_time')->nullable(false);
-            $table->dateTime('end_time')->nullable(false);
-            $table->boolean('is_available')->default(true);
+            $table->date('date')->nullable(false); // Új oszlop a nap tárolására
+            $table->boolean('is_available')->default(true)->nullable(true);
             $table->timestamps();
         });
     }

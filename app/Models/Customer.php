@@ -26,4 +26,16 @@ class Customer extends Model
     {
         return $this->hasMany(Order::class);
     }
+
+    /**
+     * Get the attributes that should be cast.
+     *
+     * @return array<string, string>
+     */
+    protected function casts(): array
+    {
+        return [
+            'files' => 'array', // JSON oszlop a fájlok tárolására
+        ];
+    }
 }

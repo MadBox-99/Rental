@@ -24,25 +24,31 @@ class ReservationController extends BaseController
             'dropoff_time' => 'required|date|after:pickup_time',
         ]);
 
-        $availability = Availability::where('car_id', $validated['car_id'])
-            ->where('is_available', true)
-            ->where('start_time', '<=', $validated['pickup_time'])
-            ->where('end_time', '>=', $validated['dropoff_time'])
-            ->first();
+        // Számítsuk ki a foglalás napjait
+        $startDate = now()->parse($validated['pickup_time'])->startOfDay();
+        $endDate = now()->parse($validated['dropoff_time'])->addDay()->startOfDay();
 
-        if (! $availability) {
+        // Ellenőrizzük, hogy az autó elérhető-e az adott időszakban
+        $availability = Availability::where('car_id', $validated['car_id'])
+            ->whereBetween('date', [$startDate->format('Y-m-d'), $endDate->format('Y-m-d')])
+            ->where('is_available', true)
+            ->count();
+
+        if ($availability < $endDate->diffInDays($startDate) + 1) {
             return response()->json(['error' => 'Car is not available for the selected time.'], 422);
         }
 
-        // Create the order
+        // Foglalás létrehozása
         $order = Order::create([
             'car_id' => $validated['car_id'],
             'pickup_time' => $validated['pickup_time'],
             'dropoff_time' => $validated['dropoff_time'],
         ]);
 
-        // Mark availability as unavailable for 1 hour after dropoff
-        $availability->markUnavailableForOneHour();
+        // Az elérhetőség frissítése
+        Availability::where('car_id', $validated['car_id'])
+            ->whereBetween('date', [$startDate->format('Y-m-d'), $endDate->format('Y-m-d')])
+            ->update(['is_available' => false]);
 
         return response()->json(['message' => 'Reservation created successfully.', 'order' => $order]);
     }

@@ -45,16 +45,9 @@
                                             {{ $car->model }}</a>
                                         <p class="text-gray-600">Rendelkezésre álló autók: {{ $car->transmission }}</p>
                                     </td>
-                                    @for ($i = 0; $i < 30; $i++)
-                                        @php
-                                            $date = now()->addDays($i)->format('Y-m-d');
-                                            $availability = $car->availabilities->firstWhere('date', $date);
-                                        @endphp
-                                        <td
-                                            class="px-2 py-1 border border-gray-300 {{ $availability && $availability->is_available ? 'bg-green-100' : 'bg-red-100' }}">
-                                            {{ $availability && $availability->is_available ? '1' : '0' }}
-                                        </td>
-                                    @endfor
+
+                                    @livewire('car-availability-calendar', ['car' => $car, 'displayDays' => 30])
+
                                 </tr>
                             @endforeach
                         </tbody>
