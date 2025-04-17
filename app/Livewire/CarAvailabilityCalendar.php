@@ -10,7 +10,7 @@ class CarAvailabilityCalendar extends Component
 {
     public $availabilities;
 
-    public function mount(Car $car, $displayDays)
+    public function mount(Car $car, $displayDays = 30)
     {
         $this->availabilities = Availability::whereCarId($car->id)->whereBetween('date', [today(), today()->addDays($displayDays - 1)])->get();
     }

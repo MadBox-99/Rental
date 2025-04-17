@@ -3,15 +3,15 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\CustomerResource\Pages;
-use App\Filament\Resources\CustomerResource\RelationManagers;
 use App\Models\Customer;
 use Filament\Forms;
+use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\Facades\Auth;
 
 class CustomerResource extends Resource
 {
@@ -24,6 +24,7 @@ class CustomerResource extends Resource
         return $form
             ->schema([
                 Forms\Components\Select::make('user_id')
+                    ->visible(fn (): bool => Auth::user()->hasRole(['admin', 'super-admin']))
                     ->relationship('user', 'name')
                     ->required(),
                 Forms\Components\TextInput::make('name')
@@ -52,42 +53,50 @@ class CustomerResource extends Resource
                 Forms\Components\TextInput::make('country')
                     ->required()
                     ->maxLength(255),
-                Forms\Components\TextInput::make('files'),
+                FileUpload::make('files')->multiple(),
             ]);
     }
 
     public static function table(Table $table): Table
     {
-        return $table
-            ->columns([
-                Tables\Columns\TextColumn::make('user.name')
-                    ->numeric()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('name')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('surname')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('email')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('phone')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('address')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('city')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('postal_code')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('country')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('updated_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-            ])
+        $user = Auth::user();
+        $userId = $user->id;
+
+        return $table->modifyQueryUsing(function (Builder $query) use ($userId) {
+            if (Auth::user()->hasRole(['admin', 'super-admin'])) {
+                return $query;
+            }
+
+            return $query->whereUserId($userId);
+        })->columns([
+            Tables\Columns\TextColumn::make('user.name')
+                ->numeric()
+                ->sortable(),
+            Tables\Columns\TextColumn::make('name')
+                ->searchable(),
+            Tables\Columns\TextColumn::make('surname')
+                ->searchable(),
+            Tables\Columns\TextColumn::make('email')
+                ->searchable(),
+            Tables\Columns\TextColumn::make('phone')
+                ->searchable(),
+            Tables\Columns\TextColumn::make('address')
+                ->searchable(),
+            Tables\Columns\TextColumn::make('city')
+                ->searchable(),
+            Tables\Columns\TextColumn::make('postal_code')
+                ->searchable(),
+            Tables\Columns\TextColumn::make('country')
+                ->searchable(),
+            Tables\Columns\TextColumn::make('created_at')
+                ->dateTime()
+                ->sortable()
+                ->toggleable(isToggledHiddenByDefault: true),
+            Tables\Columns\TextColumn::make('updated_at')
+                ->dateTime()
+                ->sortable()
+                ->toggleable(isToggledHiddenByDefault: true),
+        ])
             ->filters([
                 //
             ])

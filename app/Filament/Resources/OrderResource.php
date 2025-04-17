@@ -3,15 +3,15 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\OrderResource\Pages;
-use App\Filament\Resources\OrderResource\RelationManagers;
 use App\Models\Order;
 use Filament\Forms;
+use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\Facades\Auth;
 
 class OrderResource extends Resource
 {
@@ -24,6 +24,7 @@ class OrderResource extends Resource
         return $form
             ->schema([
                 Forms\Components\TextInput::make('user_id')
+                    ->visible(fn (): bool => Auth::user()->hasRole(['admin', 'super-admin']))
                     ->required()
                     ->numeric(),
                 Forms\Components\TextInput::make('car_id')
@@ -48,13 +49,22 @@ class OrderResource extends Resource
                     ->required(),
                 Forms\Components\DateTimePicker::make('dropoff_time')
                     ->required(),
-                Forms\Components\TextInput::make('documents'),
+                FileUpload::make('documents')->multiple(),
             ]);
     }
 
     public static function table(Table $table): Table
     {
-        return $table
+        $user = Auth::user();
+        $userId = $user->id;
+
+        return $table->modifyQueryUsing(function (Builder $query) use ($userId) {
+            if (Auth::user()->hasRole(['admin', 'super-admin'])) {
+                return $query;
+            }
+
+            return $query->whereUserId($userId);
+        })
             ->columns([
                 Tables\Columns\TextColumn::make('user_id')
                     ->numeric()
