@@ -13,7 +13,6 @@ class Availability extends Model
 
     protected $fillable = [
         'car_id',
-
         'is_available',
         'start_time',
         'end_time',
