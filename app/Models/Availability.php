@@ -34,4 +34,17 @@ class Availability extends Model
             'is_available' => 'boolean',
         ];
     }
+
+    /**
+     * Get the attributes that should be hidden for serialization.
+     *
+     * @return array<string>
+     */
+    protected function hidden(): array
+    {
+        return [
+            'created_at',
+            'updated_at',
+        ];
+    }
 }

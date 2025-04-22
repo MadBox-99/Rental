@@ -12,7 +12,12 @@ class CarAvailabilityCalendar extends Component
 
     public function mount(Car $car, $displayDays = 30)
     {
-        $this->availabilities = Availability::whereCarId($car->id)->whereBetween('date', [today(), today()->addDays($displayDays - 1)])->get();
+        $tmp = Availability::whereCarId($car->id)->whereBetween('date', [today(), today()->addDays($displayDays)->format('Y-m-d')])->firstOrCreate([
+            'car_id' => $car->id,
+            'date' => today()->addDays($displayDays)->format('Y-m-d'), // Only store the day
+        ])->dumpRawSql();
+        $this->availabilities = Availability::whereCarId($car->id)->whereBetween('date', [today(), today()->addDays($displayDays - 1)])->dumpRawSql()->get();
+        dump($this->availabilities);
     }
 
     public function render()

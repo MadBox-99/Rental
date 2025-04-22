@@ -1,6 +1,5 @@
 <?php
 
-use App\Models\Availability;
 use App\Models\Car;
 use App\Models\Customer;
 use App\Models\Location;
@@ -20,15 +19,15 @@ return new class extends Migration
             $table->id();
             $table->foreignIdFor(User::class)->nullable(false);
             $table->foreignIdFor(Car::class)->nullable(false);
-            $table->foreignIdFor(Availability::class)->nullable(false);
             $table->foreignIdFor(Customer::class)->nullable();
             $table->date('start_date')->nullable(false);
             $table->date('end_date')->nullable(false);
-            $table->foreignIdFor(Location::class, 'pickup_location_id')->nullable(false);
-            $table->foreignIdFor(Location::class, 'dropoff_location_id')->nullable(false);
+            $table->foreignIdFor(Location::class, 'pickup_location_id')->nullable();
+            $table->foreignIdFor(Location::class, 'dropoff_location_id')->nullable();
             $table->dateTime('pickup_time')->nullable(false);
             $table->dateTime('dropoff_time')->nullable(false);
-            $table->json('documents')->nullable();
+            $table->json('document_contract')->nullable();
+            $table->json('document_authorisation')->nullable();
 
             $table->timestamps();
         });

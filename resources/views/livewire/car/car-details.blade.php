@@ -11,8 +11,8 @@
 
             <div class="mt-4">
                 <p><strong>Osztály:</strong> Első osztály</p>
-                <p><strong>Üzemanyag:</strong> Benzin</p>
-                <p><strong>Üzemanyag használat:</strong> 265 LE</p>
+                <p><strong>Üzemanyag:</strong>{{ $car->fuel }} </p>
+                <p><strong>Üzemanyag használat:</strong> {{ $car->horsepower }} LE</p>
                 <p><strong>Távolság:</strong> Korlátlan</p>
             </div>
 

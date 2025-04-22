@@ -13,10 +13,11 @@ class Order extends Model
     protected $fillable = [
         'user_id',
         'car_id',
-        'availability_id',
         'customer_id',
         'pickup_location_id',
         'dropoff_location_id',
+        'pickup_time',
+        'dropoff_time',
 
         'start_date',
         'end_date',

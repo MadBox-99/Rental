@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Str;
 
@@ -31,13 +32,23 @@ class Car extends Model
         'fuel',
         'color',
         'doors',
-        'slug', // Add slug to fillable fields
+        'slug',
         'description',
     ];
 
     public function availabilities(): HasMany
     {
         return $this->hasMany(Availability::class);
+    }
+
+    public function attributes(): BelongsToMany
+    {
+        return $this->belongsToMany(Attribute::class);
+    }
+
+    public function carAttributes(): HasMany
+    {
+        return $this->hasMany(Attribute::class);
     }
 
     /**

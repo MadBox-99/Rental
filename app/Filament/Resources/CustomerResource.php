@@ -4,8 +4,9 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\CustomerResource\Pages;
 use App\Models\Customer;
-use Filament\Forms;
 use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
@@ -23,37 +24,45 @@ class CustomerResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\Select::make('user_id')
+                Select::make('user_id')
                     ->visible(fn (): bool => Auth::user()->hasRole(['admin', 'super-admin']))
                     ->relationship('user', 'name')
                     ->required(),
-                Forms\Components\TextInput::make('name')
+                TextInput::make('name')
                     ->required()
                     ->maxLength(255),
-                Forms\Components\TextInput::make('surname')
+                TextInput::make('surname')
                     ->required()
                     ->maxLength(255),
-                Forms\Components\TextInput::make('email')
+                TextInput::make('email')
                     ->email()
                     ->required()
                     ->maxLength(255),
-                Forms\Components\TextInput::make('phone')
+                TextInput::make('phone')
                     ->tel()
                     ->required()
                     ->maxLength(255),
-                Forms\Components\TextInput::make('address')
+                TextInput::make('address')
                     ->required()
                     ->maxLength(255),
-                Forms\Components\TextInput::make('city')
+                TextInput::make('city')
                     ->required()
                     ->maxLength(255),
-                Forms\Components\TextInput::make('postal_code')
+                TextInput::make('postal_code')
                     ->required()
                     ->maxLength(255),
-                Forms\Components\TextInput::make('country')
+                TextInput::make('country')
                     ->required()
                     ->maxLength(255),
-                FileUpload::make('files')->multiple(),
+                FileUpload::make('files')->multiple()
+                    ->preserveFilenames()
+                    ->directory('customers')
+                    ->openable()
+                    ->downloadable()
+                    ->reorderable()
+                    ->maxFiles(10)
+                    ->acceptedFileTypes(['application/pdf', 'image/*'])
+                    ->maxSize(1024 * 10),
             ]);
     }
 

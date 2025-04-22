@@ -4,12 +4,14 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\CarResource\Pages;
 use App\Models\Car;
-use Filament\Forms;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\RichEditor;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 
 class CarResource extends Resource
@@ -22,34 +24,34 @@ class CarResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('brand')
+                TextInput::make('brand')
                     ->required()
                     ->maxLength(255),
-                Forms\Components\TextInput::make('model')
+                TextInput::make('model')
                     ->required()
                     ->maxLength(255),
-                Forms\Components\TextInput::make('slug')
+                TextInput::make('slug')
                     ->required()
                     ->maxLength(255),
-                Forms\Components\TextInput::make('transmission')
+                TextInput::make('transmission')
                     ->required()
                     ->maxLength(255),
-                Forms\Components\TextInput::make('horsepower')
+                TextInput::make('horsepower')
                     ->required()
                     ->numeric(),
-                Forms\Components\TextInput::make('mileage')
+                TextInput::make('mileage')
                     ->required()
                     ->numeric(),
-                Forms\Components\TextInput::make('year')
+                TextInput::make('year')
                     ->required()
                     ->numeric(),
-                Forms\Components\TextInput::make('fuel')
+                TextInput::make('fuel')
                     ->required()
                     ->maxLength(255),
-                Forms\Components\TextInput::make('color')
+                TextInput::make('color')
                     ->required()
                     ->maxLength(255),
-                Forms\Components\TextInput::make('doors')
+                TextInput::make('doors')
                     ->required()
                     ->numeric(),
                 FileUpload::make('images')->
@@ -78,6 +80,11 @@ class CarResource extends Resource
                     'undo',
                 ])->fileAttachmentsVisibility('public')
                     ->columnSpanFull(),
+                Select::make('attributes')
+                    ->relationship('attributes', 'name')
+                    ->multiple()
+                    ->preload()
+                    ->searchable(),
             ]);
     }
 
@@ -85,35 +92,35 @@ class CarResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('brand')
+                TextColumn::make('brand')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('model')
+                TextColumn::make('model')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('slug')
+                TextColumn::make('slug')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('transmission')
+                TextColumn::make('transmission')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('horsepower')
+                TextColumn::make('horsepower')
                     ->numeric()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('mileage')
+                TextColumn::make('mileage')
                     ->numeric()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('year')
+                TextColumn::make('year')
                     ->numeric()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('fuel')
+                TextColumn::make('fuel')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('color')
+                TextColumn::make('color')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('doors')
+                TextColumn::make('doors')
                     ->numeric()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('created_at')
+                TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('updated_at')
+                TextColumn::make('updated_at')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),

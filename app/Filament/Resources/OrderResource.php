@@ -4,8 +4,11 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\OrderResource\Pages;
 use App\Models\Order;
-use Filament\Forms;
+use Filament\Forms\Components\DatePicker;
+use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
@@ -23,31 +26,38 @@ class OrderResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('user_id')
+                Select::make('user_id')
                     ->visible(fn (): bool => Auth::user()->hasRole(['admin', 'super-admin']))
+                    ->required(fn (): bool => Auth::user()->hasRole(['admin', 'super-admin']))
+                    ->relationship('user', 'name'),
+                Select::make('car_id')
                     ->required()
-                    ->numeric(),
-                Forms\Components\TextInput::make('car_id')
-                    ->required()
-                    ->numeric(),
-                Forms\Components\TextInput::make('availability_id')
-                    ->required()
-                    ->numeric(),
-                Forms\Components\TextInput::make('customer_id')
-                    ->numeric(),
-                Forms\Components\DatePicker::make('start_date')
+                    ->relationship('car', 'model'),
+                Select::make('customer_id')
+                    ->relationship('customer', 'name')
+                    ->createOptionForm([
+                        TextInput::make('name')
+                            ->required(),
+                        TextInput::make('email')
+                            ->email()
+                            ->required(),
+                        TextInput::make('phone')
+                            ->tel()
+                            ->required(),
+                    ]),
+                DatePicker::make('start_date')
                     ->required(),
-                Forms\Components\DatePicker::make('end_date')
+                DatePicker::make('end_date')
                     ->required(),
-                Forms\Components\TextInput::make('pickup_location_id')
+                TextInput::make('pickup_location_id')
                     ->required()
                     ->numeric(),
-                Forms\Components\TextInput::make('dropoff_location_id')
+                TextInput::make('dropoff_location_id')
                     ->required()
                     ->numeric(),
-                Forms\Components\DateTimePicker::make('pickup_time')
+                DateTimePicker::make('pickup_time')->seconds(false)
                     ->required(),
-                Forms\Components\DateTimePicker::make('dropoff_time')
+                DateTimePicker::make('dropoff_time')->seconds(false)
                     ->required(),
                 FileUpload::make('documents')->multiple(),
             ]);
