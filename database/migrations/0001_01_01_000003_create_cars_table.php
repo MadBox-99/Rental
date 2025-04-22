@@ -13,18 +13,23 @@ return new class extends Migration
     {
         Schema::create('cars', function (Blueprint $table) {
             $table->id();
-            $table->string('brand');
-            $table->string('model');
-            $table->string('slug')->unique(); // Slug for brand-model
-            $table->string('transmission'); // Pl. "Automata"
-            $table->integer('horsepower');
-            $table->integer('mileage');
-            $table->integer('year');
-            $table->string('fuel');
-            $table->string('color');
-            $table->integer('doors');
-            $table->json('images')->nullable(true); // Opcióként leírás
-            $table->longText('description')->nullable(true); // Opcióként leírás
+            $table->string('brand')->nullable(false); // Pl. "Audi"
+            $table->string('model')->nullable(false);
+            $table->string('slug')->unique()->nullable(false); // Slug for brand-model
+            $table->string('transmission')->nullable(); // Pl. "Automata"
+            $table->integer('horsepower')->nullable();
+            $table->integer('mileage')->nullable();
+            $table->integer('year')->nullable();
+            $table->string('fuel')->nullable();
+            $table->string('color')->nullable();
+            $table->integer('doors')->nullable();
+            $table->json('images')->nullable(); // Opcióként leírás
+            $table->longText('description')->nullable(); // Opcióként leírás
+            $table->string('license_plate')->unique()->nullable(false); // Forgalmi rendszám
+            $table->date('technical_validity')->nullable(); // Műszaki érvényesség dátuma
+            $table->string('chassis_number')->unique()->nullable(false); // Alvázszám
+            $table->string('engine_number')->unique()->nullable(false); // Motor szám
+            $table->string('owner')->nullable(false); // Üzembentartó
             $table->timestamps();
         });
     }

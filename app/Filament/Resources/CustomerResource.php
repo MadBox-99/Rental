@@ -18,6 +18,10 @@ class CustomerResource extends Resource
 {
     protected static ?string $model = Customer::class;
 
+    protected static ?string $navigationGroup = 'Ügyfelek';
+
+    protected static ?string $navigationLabel = 'Ügyfelek';
+
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
     public static function form(Form $form): Form
@@ -28,10 +32,10 @@ class CustomerResource extends Resource
                     ->visible(fn (): bool => Auth::user()->hasRole(['admin', 'super-admin']))
                     ->relationship('user', 'name')
                     ->required(),
-                TextInput::make('name')
+                TextInput::make('first_name')
                     ->required()
                     ->maxLength(255),
-                TextInput::make('surname')
+                TextInput::make('last_name')
                     ->required()
                     ->maxLength(255),
                 TextInput::make('email')

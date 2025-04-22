@@ -18,10 +18,11 @@ class Order extends Model
         'dropoff_location_id',
         'pickup_time',
         'dropoff_time',
-
         'start_date',
         'end_date',
-        'documents',
+        'own_license_plate',
+        'document_contract',
+        'document_declaration',
     ];
 
     public function car()
@@ -37,11 +38,6 @@ class Order extends Model
     public function location()
     {
         return $this->belongsTo(Location::class);
-    }
-
-    public function availability()
-    {
-        return $this->belongsTo(Availability::class);
     }
 
     public function user()
@@ -67,7 +63,8 @@ class Order extends Model
     protected function casts(): array
     {
         return [
-            'documents' => 'array', // JSON oszlop a fájlok tárolására
+            'document_contract' => 'array',
+            'document_declaration' => 'array',
         ];
     }
 }

@@ -15,6 +15,10 @@ class AvailabilityResource extends Resource
 {
     protected static ?string $model = Availability::class;
 
+    protected static ?string $navigationGroup = 'Autók';
+
+    protected static ?string $navigationLabel = 'Elérhetőségek';
+
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
     public static function form(Form $form): Form
@@ -74,7 +78,7 @@ class AvailabilityResource extends Resource
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
-                Tables\Actions\DeleteBulkAction::make(),
+                    Tables\Actions\DeleteBulkAction::make(),
                 ]),
             ]);
     }

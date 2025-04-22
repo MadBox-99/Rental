@@ -17,12 +17,23 @@ class Customer extends Model
         'first_name',
         'last_name',
         'email',
-        'phone_number',
+        'phone',
         'address',
         'city',
         'postal_code',
         'country',
-        'files',
+        'files', // JSON oszlop a fájlok tárolására
+        'born_place', // Születési hely
+        'born_year', // Születési év
+        'born_month', // Születési hónap
+        'born_day', // Születési nap
+        'license_number', // Jogosítvány száma
+        'license_issue_date', // Jogosítvány kiállításának dátuma
+        'license_expiry_date', // Jogosítvány lejárati dátuma
+        'id_card_number', // Személyigazolványszám
+        'address_number', // házszám
+        'address_extra', // emelet/ajtó
+        'full_name', // teljes név
     ];
 
     public function orders(): HasMany

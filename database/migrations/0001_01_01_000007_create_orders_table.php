@@ -24,10 +24,12 @@ return new class extends Migration
             $table->date('end_date')->nullable(false);
             $table->foreignIdFor(Location::class, 'pickup_location_id')->nullable();
             $table->foreignIdFor(Location::class, 'dropoff_location_id')->nullable();
-            $table->dateTime('pickup_time')->nullable(false);
-            $table->dateTime('dropoff_time')->nullable(false);
+            $table->time('pickup_time')->nullable(false);
+            $table->time('dropoff_time')->nullable(false);
+            $table->string('own_license_plate')->nullable();
+
             $table->json('document_contract')->nullable();
-            $table->json('document_authorisation')->nullable();
+            $table->json('document_declaration')->nullable();
 
             $table->timestamps();
         });

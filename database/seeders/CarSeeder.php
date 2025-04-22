@@ -22,6 +22,11 @@ class CarSeeder extends Seeder
             'year' => 2024,
             'color' => 'Gray',
             'mileage' => 0,
+            'license_plate' => 'ABC-123',
+            'technical_validity' => now()->addYear(),
+            'chassis_number' => 'TS123456789012341',
+            'engine_number' => 'TS123456789012341',
+            'owner' => 'John Doe',
         ]);
         Car::factory()->create([
             'brand' => 'Skoda',
@@ -33,6 +38,11 @@ class CarSeeder extends Seeder
             'year' => 2024,
             'color' => 'Gray',
             'mileage' => 0,
+            'license_plate' => 'DEF-456',
+            'technical_validity' => now()->addYear(),
+            'chassis_number' => 'TS123456789012342',
+            'engine_number' => 'TS123456789012342',
+            'owner' => 'John Doe',
         ]);
         Car::factory()->create([
             'brand' => 'Skoda',
@@ -44,6 +54,11 @@ class CarSeeder extends Seeder
             'year' => 2024,
             'color' => 'Black',
             'mileage' => 0,
+            'license_plate' => 'GHI-789',
+            'technical_validity' => now()->addYear(),
+            'chassis_number' => 'TS123456789012343',
+            'engine_number' => 'TS123456789012343',
+            'owner' => 'John Doe',
         ]);
 
     }

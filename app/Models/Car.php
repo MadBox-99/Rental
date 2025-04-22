@@ -34,6 +34,12 @@ class Car extends Model
         'doors',
         'slug',
         'description',
+        'license_plate',
+        'technical_validity',
+        'chassis_number',
+        'engine_number',
+        'owner',
+        'images',
     ];
 
     public function availabilities(): HasMany

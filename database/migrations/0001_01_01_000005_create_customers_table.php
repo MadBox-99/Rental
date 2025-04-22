@@ -14,16 +14,26 @@ return new class extends Migration
     {
         Schema::create('customers', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(User::class)->nullable(false);
-            $table->string('name')->nullable(false);
-            $table->string('surname')->nullable(false);
-            $table->string('email')->unique()->nullable(false);
-            $table->string('phone')->nullable(false);
-            $table->string('address')->nullable(false);
-            $table->string('city')->nullable(false);
-            $table->string('postal_code')->nullable(false);
-            $table->string('country')->nullable(false);
-            $table->json('files')->nullable(true); // JSON oszlop a fájlok tárolására
+            $table->foreignIdFor(User::class)->nullable();
+            $table->string('first_name')->nullable();
+            $table->string('last_name')->nullable();
+            $table->string('full_name')->virtualAs('concat(first_name, \' \', last_name)');
+            $table->string('email')->unique()->nullable();
+            $table->string('phone')->nullable();
+            $table->string('address')->nullable(); // utca
+            $table->string('address_number')->nullable(); // házszám
+            $table->string('address_extra')->nullable(); // emelet/ajtó
+            $table->string('city')->nullable();
+            $table->string('postal_code')->nullable();
+            $table->string('born_place')->nullable(); // Születési hely
+            $table->integer('born_year')->nullable(); // Születési év
+            $table->integer('born_month')->nullable(); // Születési hónap
+            $table->integer('born_day')->nullable(); // Születési nap
+            $table->string('license_number')->nullable(); // Jogosítvány száma
+            $table->date('license_issue_date')->nullable(); // Jogosítvány kiállításának dátuma
+            $table->date('license_expiry_date')->nullable(); // Jogosítvány lejárati dátuma
+            $table->string('id_card_number')->nullable(); // Személyigazolványszám
+            $table->json('files')->nullable(); // JSON oszlop a fájlok tárolására
 
             $table->timestamps();
         });
