@@ -46,6 +46,7 @@ class DatabaseSeeder extends Seeder
 
         $this->call([
             CarSeeder::class,
+            AttributesSeeder::class,
             AvailabilitySeeder::class,
             LocationSeeder::class,
             CustomerSeeder::class,

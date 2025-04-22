@@ -2,7 +2,8 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Attribute;
+use App\Models\Car;
 use Illuminate\Database\Seeder;
 
 class AttributesSeeder extends Seeder
@@ -12,6 +13,10 @@ class AttributesSeeder extends Seeder
      */
     public function run(): void
     {
-        //
+        Car::all()->each(function ($car) {
+            $car->attributes()->attach(
+                Attribute::factory()->count(3)->create()->pluck('id')->toArray()
+            );
+        });
     }
 }
