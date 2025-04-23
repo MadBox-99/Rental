@@ -18,11 +18,6 @@ class Customer extends Model
         'last_name',
         'email',
         'phone',
-        'address',
-        'city',
-        'postal_code',
-        'country',
-        'files', // JSON oszlop a fájlok tárolására
         'born_place', // Születési hely
         'born_year', // Születési év
         'born_month', // Születési hónap
@@ -31,9 +26,13 @@ class Customer extends Model
         'license_issue_date', // Jogosítvány kiállításának dátuma
         'license_expiry_date', // Jogosítvány lejárati dátuma
         'id_card_number', // Személyigazolványszám
+        'postal_code',
+        'city',
+        'address',
         'address_number', // házszám
         'address_extra', // emelet/ajtó
         'full_name', // teljes név
+        'files', // JSON oszlop a fájlok tárolására
     ];
 
     public function orders(): HasMany
@@ -55,6 +54,8 @@ class Customer extends Model
     {
         return [
             'files' => 'array', // JSON oszlop a fájlok tárolására
+            'license_issue_date' => 'date',
+            'license_expiry_date' => 'date',
         ];
     }
 }

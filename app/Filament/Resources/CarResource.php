@@ -26,6 +26,10 @@ class CarResource extends Resource
 
     protected static ?string $navigationLabel = 'Autók';
 
+    protected static ?string $modelLabel = 'Autó';
+
+    protected static ?string $pluralModelLabel = 'Autók';
+
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
     public static function form(Form $form): Form

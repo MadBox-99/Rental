@@ -57,6 +57,14 @@ class Car extends Model
         return $this->hasMany(Attribute::class);
     }
 
+    public function isAvailable($date): bool
+    {
+        return $this->availabilities()
+            ->where('is_available', true)
+            ->where('date', $date)
+            ->exists();
+    }
+
     /**
      * Get the attributes that should be cast.
      *

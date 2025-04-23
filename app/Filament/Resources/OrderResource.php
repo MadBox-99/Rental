@@ -3,27 +3,40 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\OrderResource\Pages;
+use App\Models\Availability;
+use App\Models\Car;
+use App\Models\Customer;
 use App\Models\Order;
+use Carbon\Carbon;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\TimePicker;
 use Filament\Forms\Form;
+use Filament\Forms\Get;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Concerns\HasFilters;
+use Filament\Tables\Filters\Filter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Auth;
 
 class OrderResource extends Resource
 {
+    use HasFilters;
+
     protected static ?string $model = Order::class;
 
     protected static ?string $navigationGroup = 'Rendelések';
 
     protected static ?string $navigationLabel = 'Rendelések';
+
+    protected static ?string $modelLabel = 'Rendelés';
+
+    protected static ?string $pluralModelLabel = 'Rendelések';
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
@@ -34,10 +47,11 @@ class OrderResource extends Resource
                 Select::make('user_id')
                     ->label('Felhasználó')
                     ->visible(fn (): bool => Auth::user()->hasRole(['admin', 'super-admin']))
-                    ->required(fn (): bool => Auth::user()->hasRole(['admin', 'super-admin']))
+                    // ->required(fn (): bool => Auth::user()->hasRole(['admin', 'super-admin']))
                     ->relationship('user', 'name'),
                 Select::make('car_id')
                     ->label('Autó')
+                    ->live()
                     ->required()
                     ->relationship('car', 'model'),
                 Select::make('customer_id')
@@ -58,15 +72,25 @@ class OrderResource extends Resource
                             ->label('Telefonszám')
                             ->tel()
                             ->required(),
-                    ]),
+                    ])->createOptionUsing(function (array $data): int {
+                        $data['user_id'] = Auth::user()->id;
+
+                        return Customer::create($data)->getKey();
+                    }),
                 TextInput::make('own_license_plate')
                     ->label('Saját rendszám')
                     ->columnSpan(2)
                     ->maxLength(255),
                 DatePicker::make('start_date')
+                    ->disabledDates(function (Get $get) {
+                        return Availability::whereCarId($get)->whereIsAvailable(false)->pluck('date')->toArray();
+                    })
                     ->label('Kezdési dátum')
                     ->required(),
                 DatePicker::make('end_date')
+                    ->disabledDates(function (Get $get) {
+                        return Availability::whereCarId($get)->whereIsAvailable(false)->pluck('date')->toArray();
+                    })
                     ->label('Befejezési dátum')
                     ->required(),
                 TextInput::make('pickup_location_id')
@@ -112,6 +136,11 @@ class OrderResource extends Resource
             }
 
             return $query->whereUserId($userId);
+        })->header(function ($livewire) {
+            $month = $livewire->tableFilters['month']['month'] ?? now()->format('Y-m');
+            $data = self::getAvailableCarsData($month);
+
+            return view('components.available-cars-chart', $data);
         })
             ->columns([
                 TextColumn::make('user_id')
@@ -165,7 +194,28 @@ class OrderResource extends Resource
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
-                //
+                Filter::make('month')
+                    ->label('Hónap')
+                    ->form([
+                        Select::make('month')
+                            ->label('Válassz hónapot')
+                            ->options(
+                                collect(range(0, 5))->mapWithKeys(function ($i) {
+                                    $date = now()->addMonths($i);
+
+                                    return [$date->format('Y-m') => $date->format('Y. F')];
+                                })->toArray()
+                            )
+                            ->default(now()->format('Y-m')),
+                    ])
+                    ->query(function (Builder $query, array $data) {
+                        if (! empty($data['month'])) {
+                            $startOfMonth = Carbon::parse($data['month'])->startOfMonth();
+                            $endOfMonth = Carbon::parse($data['month'])->endOfMonth();
+
+                            return $query->whereBetween('start_date', [$startOfMonth, $endOfMonth]);
+                        }
+                    }),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
@@ -180,7 +230,7 @@ class OrderResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+
         ];
     }
 
@@ -191,5 +241,26 @@ class OrderResource extends Resource
             'create' => Pages\CreateOrder::route('/create'),
             'edit' => Pages\EditOrder::route('/{record}/edit'),
         ];
+    }
+
+    public static function getAvailableCarsData($month)
+    {
+        $startOfMonth = Carbon::parse($month)->startOfMonth();
+        $endOfMonth = Carbon::parse($month)->endOfMonth();
+        $dates = Carbon::parse($startOfMonth)->daysUntil($endOfMonth);
+
+        $cars = Car::all()->map(function ($car) use ($dates) {
+            $car->availability = $dates->map(function ($date) use ($car) {
+                $isAvailable = ! $car->availabilities->whereDate('date', '<=', $date)
+                    ->whereDate('date', '>=', $date)
+                    ->exists();
+
+                return [$date->format('Y-m-d') => $isAvailable];
+            });
+
+            return $car;
+        });
+
+        return compact('dates', 'cars');
     }
 }

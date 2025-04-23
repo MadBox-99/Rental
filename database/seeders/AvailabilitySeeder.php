@@ -16,11 +16,21 @@ class AvailabilitySeeder extends Seeder
         $cars = Car::all();
 
         foreach ($cars as $car) {
-            for ($i = 0; $i < 30; $i++) {
+            // Add availability for the past 15 years
+            for ($i = 0; $i < 15 * 365; $i++) {
                 Availability::create([
                     'car_id' => $car->id,
-                    'date' => now()->addDays($i)->format('Y-m-d'), // Csak a napot tároljuk
-                    'is_available' => true, // Alapértelmezett elérhetőség
+                    'date' => now()->subDays($i + 1)->format('Y-m-d'), // Subtract days for past dates
+                    'is_available' => (bool) random_int(0, 1), // Random true or false
+                ]);
+            }
+
+            // Add availability for the next 15 years
+            for ($i = 0; $i < 15 * 365; $i++) {
+                Availability::create([
+                    'car_id' => $car->id,
+                    'date' => now()->addDays($i)->format('Y-m-d'), // Add days for future dates
+                    'is_available' => (bool) random_int(0, 1), // Random true or false
                 ]);
             }
         }

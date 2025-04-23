@@ -19,6 +19,10 @@ class AvailabilityResource extends Resource
 
     protected static ?string $navigationLabel = 'Elérhetőségek';
 
+    protected static ?string $modelLabel = 'Elérhetőség';
+
+    protected static ?string $pluralModelLabel = 'Elérhetőségek';
+
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
     public static function form(Form $form): Form
@@ -27,6 +31,7 @@ class AvailabilityResource extends Resource
             ->schema([
                 Forms\Components\Select::make('car_id')
                     ->relationship('car', 'model')
+                    ->label('Autó model')
                     ->required(),
                 Forms\Components\DatePicker::make('date')
                     ->required(),
@@ -38,16 +43,18 @@ class AvailabilityResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('car.brand')
+                Tables\Columns\TextColumn::make('car.brand')->label('Márka')
                     ->numeric()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('car.model')
+                Tables\Columns\TextColumn::make('car.model')->label('Model')
                     ->numeric()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('date')
+                Tables\Columns\TextColumn::make('date')->label('Dátum')
                     ->date()
                     ->sortable(),
-                ToggleColumn::make('is_available'),
+                ToggleColumn::make('is_available')->label('Elérhető')
+                    ->sortable()
+                    ->toggleable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
@@ -72,6 +79,10 @@ class AvailabilityResource extends Resource
                         $query->where('date', '<=', $data['end_date']);
                     });
                 }),
+                Tables\Filters\SelectFilter::make('car_model')
+                    ->label('Model')
+                    ->relationship('car', 'model')
+                    ->preload(),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
