@@ -36,6 +36,10 @@
     "src": "resources/css/app.css",
     "isEntry": true
   },
+  "resources/img/logo.png": {
+    "file": "assets/logo-BPyr_z4Z.png",
+    "src": "resources/img/logo.png"
+  },
   "resources/js/app.js": {
     "file": "assets/app-l0sNRNKZ.js",
     "name": "app",

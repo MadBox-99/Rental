@@ -1,8 +1,11 @@
+@use('Illuminate\Support\Facades\Storage')
 <div class="container mx-auto py-12">
+
     <div class="flex flex-col md:flex-row items-center md:items-start">
         <!-- Car Image -->
         <div class="w-full md:w-1/2">
-            <img src="{{ asset('images/cars/' . $car->id . '.png') }}" alt="{{ $car->model }}" class="w-full h-auto">
+            <img src="{{ Storage::url($car->images[0] ?? 'placeholder.jpeg') }}" alt="{{ $car->model }}"
+                class="w-full h-auto">
         </div>
 
         <!-- Car Details -->
@@ -12,17 +15,20 @@
             <div class="mt-4">
                 <p><strong>Osztály:</strong> Első osztály</p>
                 <p><strong>Üzemanyag:</strong>{{ $car->fuel }} </p>
-                <p><strong>Üzemanyag használat:</strong> {{ $car->horsepower }} LE</p>
+                <p><strong>Motor teljesítménye:</strong> {{ $car->horsepower }} LE</p>
                 <p><strong>Távolság:</strong> Korlátlan</p>
+                <p><strong>Ajtók száma:</strong> {{ $car->doors }}</p>
+
             </div>
 
             <div class="mt-6">
                 <h2 class="text-xl font-semibold">További információk</h2>
                 <ul class="list-disc list-inside mt-2">
-                    <li>Klíma</li>
-                    <li>Elektromos ablakok</li>
-                    <li>Biztonsági funkciók: ABS, ESP, tempomat</li>
-                    <li>4 kerék meghajtás</li>
+                    <ul class="list-disc list-inside mt-2">
+                        @foreach ($car->attributes ?? [] as $attributes)
+                            <li>{{ $attributes->name }}:</strong> {{ $attributes->description }}</li>
+                        @endforeach
+                    </ul>
                 </ul>
             </div>
         </div>
@@ -52,19 +58,6 @@
                 </thead>
                 <tbody>
                     <tr>
-                        {{-- <td class="px-4 py-2 border border-gray-300 font-bold text-red-600">
-                            {{ $car->brand }} {{ $car->model }}
-                        </td>
-                        @for ($i = 0; $i < 30; $i++)
-                            @php
-                                $date = now()->addDays($i)->format('Y-m-d');
-                                $availability = $car->availabilities->firstWhere('date', $date);
-                            @endphp
-                            <td
-                                class="px-2 py-1 border border-gray-300 {{ $availability && $availability->is_available ? 'bg-green-100' : 'bg-red-100' }}">
-                                {{ $availability && $availability->is_available ? '1' : '0' }}
-                            </td>
-                        @endfor --}}
                         <td class="px-4 py-2 border border-gray-300 font-bold text-red-600">
                             {{ $car->brand }} {{ $car->model }}
                         </td>
@@ -82,16 +75,6 @@
     <div class="mt-12">
         <h2 class="text-2xl font-semibold text-center mb-4">{{ $car->brand }} {{ $car->model }}</h2>
         <p class="text-gray-700 mb-4">{{ $car->description }}</p>
-
-        <h3 class="text-xl font-semibold mb-2">Főbb jellemzők:</h3>
-        <ul class="list-disc list-inside text-gray-700">
-            <li>Kiemelkedően tágas utastér</li>
-            <li>Kifinomult, mégis modern külső megjelenés</li>
-            <li>Automata váltó és vezetéstámogató rendszerek</li>
-            <li>Prémium komfort: ülésfűtés, klímazóna, navigáció</li>
-            <li>Nagyméretű csomagtartó – tökéletes hosszabb utakhoz is</li>
-            <li>Halk, kényelmes futás minden útípuson</li>
-        </ul>
 
         <p class="mt-4 text-gray-700">Bérelje ki a <strong>{{ $car->brand }} {{ $car->model }}</strong>-et, ha nem
             szeretne kompromisszumot kötni a kényelem, a megjelenés és a vezetési élmény terén. Ez a modell minden

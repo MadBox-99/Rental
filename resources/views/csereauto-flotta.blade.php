@@ -35,13 +35,14 @@
                             @foreach ($cars as $car)
                                 <tr class="bg-white hover:bg-gray-100">
                                     <td class="px-4 py-2 border border-gray-300">
-                                        <a href="#" class="block">
+                                        <a href="{{ route('cars.show', ['slug' => $car->slug]) }}" class="block">
                                             <img src="{{ asset('images/cars/' . $car->id . '.png') }}"
                                                 alt="{{ $car->model }}" class="h-12 mx-auto">
                                         </a>
                                     </td>
                                     <td class="px-4 py-2 border border-gray-300">
-                                        <a href="#" class="text-blue-600 hover:underline">{{ $car->brand }}
+                                        <a
+                                            href="{{ route('cars.show', ['slug' => $car->slug]) }}"class="text-blue-600 hover:underline">{{ $car->brand }}
                                             {{ $car->model }}</a>
                                         <p class="text-gray-600">Rendelkezésre álló autók: {{ $car->transmission }}</p>
                                     </td>
