@@ -23,8 +23,11 @@ Route::middleware(['auth'])->group(function () {
     Route::get('settings/appearance', Appearance::class)->name('settings.appearance');
 });
 
-Route::view('/csereauto-flotta', 'csereauto-flotta')->name('csereauto-flotta');
-Route::get('/csereauto-flotta', [ReservationController::class, 'availability'])->name('availability');
+/* Route::get('/csereauto-flotta', function () {
+    return view('csereauto-flotta');
+})->name('csereauto-flotta'); */
+
+Route::get('/csereauto-flotta', [ReservationController::class, 'availability'])->name('csereauto-flotta');
 Route::view('/berleti-feltetelek', 'berleti-feltetelek')->name('berleti-feltetelek');
 Route::view('/szolgaltatasaink', 'szolgaltatasaink')->name('szolgaltatasaink');
 Route::view('/csatlakozasi-lehetoseg', 'csatlakozasi-lehetoseg')->name('csatlakozasi-lehetoseg');

@@ -4,8 +4,9 @@
         <!-- Logo -->
         <div class="flex items-center">
             <a href="https://csereautoberles.hu/" title="FEM CARS Csereautó bérlés" class="flex items-center">
-                <img src="https://csereautoberles.hu/wp-content/uploads/2025/04/femcars_piros_logo.png"
-                    alt="FEM CARS Csereautó bérlés" class="h-12">
+
+                <img src="{{ Vite::asset('resources/img/logo.png') }}" class="h-12" alt="FEM CARS Csereautó bérlés">
+
             </a>
         </div>
 

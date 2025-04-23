@@ -17,7 +17,7 @@
         </style>
 
         @filamentStyles
-        @vite('resources/css/app.css')
+        @vite('resources/js/app.js')
     </head>
     <x-layouts.navbar />
 
@@ -27,7 +27,7 @@
 
         <x-layouts.footer />
         @filamentScripts
-        @vite('resources/js/app.js')
+
     </body>
 
 </html>

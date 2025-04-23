@@ -3,7 +3,7 @@
         <!-- Company Info -->
         <div>
             <div class="flex items-center mb-4">
-                <img src="/path-to-logo.png" alt="Fem-Cars Logo" class="h-12 mr-3">
+                <img src="{{ Vite::asset('resources/img/logo.png') }}" alt="Fem-Cars Logo" class="h-12 mr-3">
                 <span class="text-xl font-bold">Fem-Cars Hungary Kft.</span>
             </div>
             <p class="text-sm">2083 Solymár, Mátyás Király út 45.</p>
@@ -15,12 +15,13 @@
         <div>
             <h3 class="text-lg font-semibold mb-4">Menü</h3>
             <ul class="space-y-2 text-sm">
-                <li><a href="#" class="hover:underline">Főoldal</a></li>
-                <li><a href="#" class="hover:underline">Csereautó flotta</a></li>
-                <li><a href="#" class="hover:underline">Bérleti feltételek</a></li>
-                <li><a href="#" class="hover:underline">Szolgáltatások</a></li>
-                <li><a href="#" class="hover:underline">Csatlakozási lehetőség</a></li>
-                <li><a href="#" class="hover:underline">Elérhetőség</a></li>
+                <li><a href="{{ route('home') }}" class="hover:underline">Főoldal</a></li>
+                <li><a href="{{ route('csereauto-flotta') }}" class="hover:underline">Csereautó flotta</a></li>
+                <li><a href="{{ route('berleti-feltetelek') }}" class="hover:underline">Bérleti feltételek</a></li>
+                <li><a href="{{ route('szolgaltatasaink') }}" class="hover:underline">Szolgáltatások</a></li>
+                <li><a href="{{ route('csatlakozasi-lehetoseg') }}" class="hover:underline">Csatlakozási lehetőség</a>
+                </li>
+                <li><a href="{{ route('kapcsolat') }}" class="hover:underline">Elérhetőség</a></li>
             </ul>
         </div>
 
