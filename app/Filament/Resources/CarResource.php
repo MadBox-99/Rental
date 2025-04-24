@@ -85,6 +85,10 @@ class CarResource extends Resource
                     ->label('Műszaki érvényesség')
                     ->placeholder('YYYY-MM-DD')
                     ->format('Y-m-d'),
+                TextInput::make('technical_validity_number')
+                    ->label('Forgalmi engedély száma')
+                    ->unique('cars', 'technical_validity_number', ignoreRecord: true)
+                    ->maxLength(255),
                 TextInput::make('chassis_number')
                     ->label('Alvázszám')
                     ->unique('cars', 'chassis_number', ignoreRecord: true)

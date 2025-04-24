@@ -21,13 +21,13 @@ class CustomerResource extends Resource
 {
     protected static ?string $model = Customer::class;
 
-    protected static ?string $navigationGroup = 'Ügyfelek';
+    protected static ?string $navigationGroup = 'Bérlők';
 
-    protected static ?string $navigationLabel = 'Ügyfelek';
+    protected static ?string $navigationLabel = 'Bérlők';
 
-    protected static ?string $modelLabel = 'Ügyfél';
+    protected static ?string $modelLabel = 'Bérlő';
 
-    protected static ?string $pluralModelLabel = 'Ügyfelek';
+    protected static ?string $pluralModelLabel = 'Bérlők';
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 

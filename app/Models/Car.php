@@ -37,6 +37,7 @@ class Car extends Model
         'description',
         'license_plate',
         'technical_validity',
+        'technical_validity_number',
         'chassis_number',
         'engine_number',
         'owner',

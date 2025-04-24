@@ -82,15 +82,16 @@
             <table style="width: 100%; border-collapse: collapse; font-size: 12px;">
                 <tr>
                     <td style="border: 1px solid #000; padding: 5px; width: 25%;">Cég név:</td>
-                    <td style="border: 1px solid #000; padding: 5px; width: 25%;">&nbsp;</td>
+                    <td style="border: 1px solid #000; padding: 5px; width: 25%;"></td>
                     <td style="border: 1px solid #000; padding: 5px; width: 25%;">Név:</td>
-                    <td style="border: 1px solid #000; padding: 5px; width: 25%;">&nbsp;</td>
+                    <td style="border: 1px solid #000; padding: 5px; width: 25%;">{{ $order->customer->full_name }}</td>
                 </tr>
                 <tr>
                     <td style="border: 1px solid #000; padding: 5px; width: 25%;">Cégjegyzék sz.:</td>
                     <td style="border: 1px solid #000; padding: 5px; width: 25%;"></td>
                     <td style="border: 1px solid #000; padding: 5px; width: 25%;">Születési hely, idő:</td>
-                    <td style="border: 1px solid #000; padding: 5px; width: 25%;"></td>
+                    <td style="border: 1px solid #000; padding: 5px; width: 25%;">{{ $order->customer->born_place }} ,
+                        {{ $order->customer->year }}-{{ $order->customer->month }}-{{ $order->customer->day }}</td>
                 </tr>
                 <tr>
                     <td style="border: 1px solid #000; padding: 5px; width: 25%;">Székhely:</td>

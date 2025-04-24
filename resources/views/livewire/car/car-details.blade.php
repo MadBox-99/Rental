@@ -15,23 +15,32 @@
         <div class="w-full md:w-1/2 md:pl-8">
             <h1 class="text-3xl font-bold text-red-600">{{ $car->brand }} {{ $car->model }}</h1>
 
-            <div class="mt-4">
-                <p><strong>Osztály:</strong> Első osztály</p>
-                <p><strong>Üzemanyag:</strong>{{ $car->fuel }} </p>
-                <p><strong>Motor teljesítménye:</strong> {{ $car->horsepower }} LE</p>
-                <p><strong>Távolság:</strong> Korlátlan</p>
-                <p><strong>Ajtók száma:</strong> {{ $car->doors }}</p>
-
+            <div class="mt-4 grid grid-cols-2 gap-4 border-t border-gray-300 pt-4">
+                <p class="flex items-center"><i class="fas fa-car text-red-600 mr-2"></i><strong>Osztály:</strong> Első
+                    osztály</p>
+                <p class="flex items-center">
+                    <i class="fas fa-gas-pump text-red-600 mr-2"></i><strong>Üzemanyag:</strong> {{ $car->fuel }}
+                </p>
+                <p class="flex items-center"><i class="fas fa-cogs text-red-600 mr-2"></i>
+                    <strong>Váltó rendszer:</strong>
+                    {{ $car->transmission }}
+                </p>
+                <p class="flex items-center"><i class="fas fa-tachometer-alt text-red-600 mr-2"></i><strong>Motor
+                        teljesítménye:</strong> {{ $car->horsepower }} LE</p>
+                <p class="flex items-center"><i class="fas fa-door-open text-red-600 mr-2"></i><strong>Ajtók
+                        száma:</strong>
+                    {{ $car->doors }}
+                </p>
             </div>
 
-            <div class="mt-6">
-                <h2 class="text-xl font-semibold">További információk</h2>
-                <ul class="list-disc list-inside mt-2">
-                    <ul class="list-disc list-inside mt-2">
-                        @foreach ($car->attributes ?? [] as $attributes)
-                            <li>{{ $attributes->name }}:</strong> {{ $attributes->description }}</li>
-                        @endforeach
-                    </ul>
+            <div class="mt-6 border-t border-gray-300 pt-4">
+                <h2 class="text-xl font-semibold mb-2">További információk</h2>
+                <ul class="list-none space-y-2">
+                    @foreach ($car->attributes ?? [] as $attributes)
+                        <li class="flex items-center"><i class="fas fa-check text-green-600 mr-2"></i>
+                            {{ $attributes->description }}
+                        </li>
+                    @endforeach
                 </ul>
             </div>
         </div>

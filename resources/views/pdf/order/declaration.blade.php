@@ -87,7 +87,7 @@
         <section>
             <h2 style="text-align: center; font-size: 16px; font-weight: bold;">NYILATKOZOM</h2>
             <p style="font-size: 12px; text-align: justify;">
-                hogy a EUrent Autókölcsönző Kft. tulajdonában / üzemeltetésében lévő
+                hogy a Fem-Cars Hungary Kft. tulajdonában / üzemeltetésében lévő
                 <span style="text-decoration: underline;">....................................................</span>
                 forgalmi
                 rendszámú gépjárművet
@@ -110,17 +110,17 @@
                 kártérítés, tankolási költség, közlekedési szabálysértés miatti büntetés, közigazgatási bírság,
                 parkolási pótdíj),
                 melyeket felelősségemet tudomásul veszem, és egyúttal engedélyezem, hogy ezen felmerülő költségeket a
-                EUrent Autókölcsönző Kft. az Általános bérleti szerződési feltételeknek megfelelően bankkártyámra
+                Fem-Cars Hungary Kft. az Általános bérleti szerződési feltételeknek megfelelően bankkártyámra
                 terhelje.
             </p>
             <p style="font-size: 12px; text-align: justify;">
                 Egyúttal kötelezettséget vállalok arra nézve, hogy amennyiben erre nincs mód (eltérő fizetőeszköz,
-                időközben lejárt bankkártya, limitengedély hiánya miatt), úgy ezeket a költségeket a EUrent
-                Autókölcsönző Kft. részére maradéktalanul megtérítem.
+                időközben lejárt bankkártya, limitengedély hiánya miatt), úgy ezeket a költségeket a Fem-Cars Hungary
+                Kft. részére maradéktalanul megtérítem.
             </p>
             <p style="font-size: 12px; text-align: justify;">
                 Továbbá hozzájárulok ahhoz, hogy hatósági (szabálysértési, büntető) valamint parkolási, biztosítási és
-                kárendezési ügyben nevemet és személyi adataimat a EUrent Autókölcsönző Kft. adatszolgáltatás céljából
+                kárendezési ügyben nevemet és személyi adataimat a Fem-Cars Hungary Kft. adatszolgáltatás céljából
                 megkerdezésem nélkül kiadhassa.
             </p>
             <p style="font-size: 12px;">

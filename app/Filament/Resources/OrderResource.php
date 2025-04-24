@@ -55,7 +55,7 @@ class OrderResource extends Resource
                     ->required()
                     ->relationship('car', 'model'),
                 Select::make('customer_id')
-                    ->label('Ügyfél')
+                    ->label('Bérlő')
                     ->relationship('customer', 'first_name')
                     ->createOptionForm([
                         TextInput::make('first_name')
@@ -153,7 +153,7 @@ class OrderResource extends Resource
                     ->numeric()
                     ->sortable(),
                 TextColumn::make('customer.full_name')
-                    ->label('Ügyfél neve')
+                    ->label('Bérlő neve')
                     ->numeric()
                     ->sortable(),
                 TextColumn::make('start_date')

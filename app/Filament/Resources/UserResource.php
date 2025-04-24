@@ -22,7 +22,7 @@ class UserResource extends Resource
 
     protected static ?string $pluralModelLabel = 'Felhasználók';
 
-    protected static ?string $navigationGroup = 'Ügyfelek';
+    protected static ?string $navigationGroup = 'Felhasználók';
 
     protected static ?string $navigationLabel = 'Felhasználók';
 

@@ -28,6 +28,7 @@ return new class extends Migration
             $table->longText('description')->nullable(); // Opcióként leírás
             $table->string('license_plate')->unique()->nullable(false); // Forgalmi rendszám
             $table->date('technical_validity')->nullable(); // Műszaki érvényesség dátuma
+            $table->string('technical_validity_number')->unique()->nullable(); // Műszaki érvényesség száma
             $table->string('chassis_number')->unique()->nullable(false); // Alvázszám
             $table->string('engine_number')->unique()->nullable(false); // Motor szám
             $table->string('owner')->nullable(false); // Üzembentartó
