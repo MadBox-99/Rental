@@ -31,6 +31,7 @@ class User extends Authenticatable
         'company_registration_number',
         'representative',
         'contact_person',
+        'email_verified_at',
         'phone',
     ];
 
