@@ -3,7 +3,7 @@
         <div class="bg-white rounded-lg shadow-md p-6 text-center flex flex-col justify-between"
             style="min-height: 650px;">
             <div>
-                @empty($cars->images)
+                @empty($car->images)
                     <img src="https://placehold.co/600x400?text=Hello+World" alt="Default Car Image" class="w-full h-auto">
                 @else
                     <img src="{{ asset('storage' . $car->images[0]) }}" alt="{{ $car->brand }} {{ $car->model }}"
