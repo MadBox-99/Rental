@@ -42,15 +42,14 @@
 
         <section>
             <p style="font-size: 12px;">
-                Alulírott <span style="text-decoration: underline;">{{ $order->customer->full_name }}</span>
-                (név), Saját rendszám:
-                <span style="text-decoration: underline;">....................................................</span>
+                Alulírott <span style="text-decoration: underline;">{{ $order->customer->full_name }}</span>, <br>
+                Saját rendszám: <span style="text-decoration: underline;">{{ $order->own_license_plate }}</span>
             </p>
             <p style="font-size: 12px;">
                 születési hely: <span style="text-decoration: underline;">{{ $order->customer->born_place }}</span>,
                 születési idő:
-                <span style="text-decoration: underline;">{{ $order->customer->born_year }}</span> (év), <span
-                    style="text-decoration: underline;">{{ $order->customer->born_month }}</span> (hónap),
+                <span style="text-decoration: underline;">{{ $order->customer->born_year }}</span> (év),
+                <span style="text-decoration: underline;">{{ $order->customer->born_month }}</span> (hónap),
                 <span style="text-decoration: underline;">{{ $order->customer->born_day }}</span> (nap)
             </p>
             <p style="font-size: 12px;">
@@ -74,10 +73,9 @@
                 (-tól),
                 <span style="text-decoration: underline;">{{ $order->customer->license_expiry_date }}</span> (-ig),<br>
                 személyigazolvány szám:
-                <span style="text-decoration: underline;">{{ $order->customer->id_card_number }}</span>
-                ezennel <br>
+                <span style="text-decoration: underline;">{{ $order->customer->id_card_number }}</span>, <br>
                 e-mail cím:
-                <span style="text-decoration: underline;">{{ $order->customer->email }}</span>
+                <span style="text-decoration: underline;">{{ $order->customer->email }}</span> ezennel <br>
             </p>
         </section>
 
