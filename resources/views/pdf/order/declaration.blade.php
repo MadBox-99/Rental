@@ -4,7 +4,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Form Question</title>
+        <title>Nyilatkozat</title>
         <style>
             body {
                 font-family: DejaVu Sans;
@@ -42,45 +42,42 @@
 
         <section>
             <p style="font-size: 12px;">
-                Alulírott <span
-                    style="text-decoration: underline;">....................................................</span>
+                Alulírott <span style="text-decoration: underline;">{{ $order->customer->full_name }}</span>
                 (név), Saját rendszám:
                 <span style="text-decoration: underline;">....................................................</span>
             </p>
             <p style="font-size: 12px;">
-                születési hely: <span
-                    style="text-decoration: underline;">...........................................................................................................................................</span>,
+                születési hely: <span style="text-decoration: underline;">{{ $order->customer->born_place }}</span>,
                 születési idő:
-                <span style="text-decoration: underline;">......................</span> (év), <span
-                    style="text-decoration: underline;">............................................</span> (hónap),
-                <span style="text-decoration: underline;">..........................</span> (nap)
+                <span style="text-decoration: underline;">{{ $order->customer->born_year }}</span> (év), <span
+                    style="text-decoration: underline;">{{ $order->customer->born_month }}</span> (hónap),
+                <span style="text-decoration: underline;">{{ $order->customer->born_day }}</span> (nap)
             </p>
             <p style="font-size: 12px;">
-                lakcím: <span
-                    style="text-decoration: underline;">....................................................</span>
+                lakcím: <span style="text-decoration: underline;">{{ $order->customer->postal_code }}</span>
                 (irányítószám)
-                <span style="text-decoration: underline;">....................................................</span>
+                <span style="text-decoration: underline;">{{ $order->customer->city }}</span>
                 (város)
-                <span style="text-decoration: underline;">....................................................</span>
+                <span style="text-decoration: underline;">{{ $order->customer->address }}</span>
                 (utca)
-                <span style="text-decoration: underline;">.........................</span>
+                <span style="text-decoration: underline;">{{ $order->customer->address_number }}</span>
                 (házszám)
-                <span style="text-decoration: underline;">.........................</span>
+                <span style="text-decoration: underline;">{{ $order->customer->address_extra }}</span>
                 (emelet/ajtó)
             </p>
             <p style="font-size: 12px;">
-                telefonszám: <span
-                    style="text-decoration: underline;">....................................................</span>,
-                jogosítványszám: <span
-                    style="text-decoration: underline;">....................................................</span>,
-                jogosítvány érvényesség: <span style="text-decoration: underline;">............................</span>
+                telefonszám: <span style="text-decoration: underline;">{{ $order->customer->phone }}</span>,<br>
+                jogosítványszám:
+                <span style="text-decoration: underline;">{{ $order->customer->license_number }}</span>,<br>
+                jogosítvány érvényesség:
+                <span style="text-decoration: underline;">{{ $order->customer->license_issue_date }}</span>
                 (-tól),
-                <span style="text-decoration: underline;">.....................................</span> (-ig),<br>
-                személyigazolvány szám: <span
-                    style="text-decoration: underline;">...................................................................................................</span>
+                <span style="text-decoration: underline;">{{ $order->customer->license_expiry_date }}</span> (-ig),<br>
+                személyigazolvány szám:
+                <span style="text-decoration: underline;">{{ $order->customer->id_card_number }}</span>
                 ezennel <br>
-                e-mail cím: <span
-                    style="text-decoration: underline;">..............................................................................</span>
+                e-mail cím:
+                <span style="text-decoration: underline;">{{ $order->customer->email }}</span>
             </p>
         </section>
 
@@ -88,20 +85,20 @@
             <h2 style="text-align: center; font-size: 16px; font-weight: bold;">NYILATKOZOM</h2>
             <p style="font-size: 12px; text-align: justify;">
                 hogy a Fem-Cars Hungary Kft. tulajdonában / üzemeltetésében lévő
-                <span style="text-decoration: underline;">....................................................</span>
+                <span style="text-decoration: underline;">{{ $order->car->license_plate }}</span>
                 forgalmi
                 rendszámú gépjárművet
             </p>
             <p style="font-size: 12px;">
-                <span style="text-decoration: underline;">.................</span> év, <span
-                    style="text-decoration: underline;">................................</span> hónap
-                <span style="text-decoration: underline;">..............</span> nap, <span
-                    style="text-decoration: underline;">.............</span> óra,
+                <span style="text-decoration: underline;">{{ $order->start_date->format('Y') }}</span> év,
+                <span style="text-decoration: underline;">{{ $order->start_date->format('m') }}</span> hónap,
+                <span style="text-decoration: underline;">{{ $order->start_date->format('d') }}</span> nap,
+                <span style="text-decoration: underline;">.............</span> óra,
                 <span style="text-decoration: underline;">................</span> perctől <br>
-                <span style="text-decoration: underline;">.................</span> év, <span
-                    style="text-decoration: underline;">................................</span> hónap
-                <span style="text-decoration: underline;">..............</span> nap, <span
-                    style="text-decoration: underline;">.............</span> óra,
+                <span style="text-decoration: underline;">{{ $order->start_date->format('Y') }}</span> év,
+                <span style="text-decoration: underline;">{{ $order->start_date->format('m') }}</span> hónap,
+                <span style="text-decoration: underline;">{{ $order->start_date->format('d') }}</span> nap,
+                <span style="text-decoration: underline;">.............</span> óra,
                 <span style="text-decoration: underline;">................</span> percig
 
             </p>

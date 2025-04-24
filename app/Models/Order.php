@@ -68,6 +68,10 @@ class Order extends Model
         return [
             'document_contract' => 'array',
             'document_declaration' => 'array',
+            'pickup_time' => 'datetime',
+            'dropoff_time' => 'datetime',
+            'start_date' => 'date',
+            'end_date' => 'date',
         ];
     }
 }
