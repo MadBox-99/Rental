@@ -11,7 +11,7 @@
                 @endempty
                 <h3 class="text-red-600 font-bold text-lg py-5 my-2">{{ $car->brand }} {{ $car->model }}</h3>
                 <p class="text-gray-700  mb-4 text-left text-lg font-semibold">
-                    {{ $car->short_description }}
+                    {!! $car->short_description !!}
                 </p>
                 <div>
                     <a href="{{ route('cars.show', ['slug' => $car->slug]) }}"
