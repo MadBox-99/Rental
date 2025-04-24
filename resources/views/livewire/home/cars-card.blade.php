@@ -6,7 +6,8 @@
                 @empty($cars->images)
                     <img src="https://placehold.co/600x400?text=Hello+World" alt="Default Car Image" class="w-full h-auto">
                 @else
-                    <img src="{{ asset($car->images[0]) }}" alt="{{ $car->brand }} {{ $car->model }}" class="mx-auto mb-4">
+                    <img src="{{ asset('storage' . $car->images[0]) }}" alt="{{ $car->brand }} {{ $car->model }}"
+                        class="mx-auto mb-4">
                 @endempty
                 <h3 class="text-red-600 font-bold text-lg py-5 my-2">{{ $car->brand }} {{ $car->model }}</h3>
                 <p class="text-gray-700  mb-4 text-left text-lg font-semibold">
