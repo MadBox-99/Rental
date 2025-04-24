@@ -55,6 +55,8 @@ class OrderResource extends Resource
                     ->required()
                     ->relationship('car', 'model'),
                 Select::make('customer_id')
+                    ->required()
+                    ->preload()
                     ->label('Bérlő')
                     ->relationship('customer', 'first_name')
                     ->createOptionForm([
@@ -67,6 +69,7 @@ class OrderResource extends Resource
                         TextInput::make('email')
                             ->label('Email')
                             ->email()
+                            ->unique(Customer::class, 'email')
                             ->required(),
                         TextInput::make('phone')
                             ->label('Telefonszám')
@@ -75,7 +78,7 @@ class OrderResource extends Resource
                     ])->createOptionUsing(function (array $data): int {
                         $data['user_id'] = Auth::user()->id;
 
-                        return Customer::create($data)->getKey();
+                        return Customer::create($data)->id;
                     }),
                 TextInput::make('own_license_plate')
                     ->label('Saját rendszám')

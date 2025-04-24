@@ -10,6 +10,7 @@ use Filament\Actions;
 use Filament\Actions\Action;
 use Filament\Notifications\Notification;
 use Filament\Resources\Pages\EditRecord;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
@@ -62,21 +63,32 @@ class EditOrder extends EditRecord
             $data['user_id'] = Auth::user()->id;
         }
 
+        return $data;
+    }
+
+    protected function handleRecordUpdate(Model $record, array $data): Model
+    {
+
         // Check if any availability is false between start_date and end_date
-        $availability = Availability::whereCarId($data['car_id'])->whereBetween('date', [$data['start_date'], $data['end_date']])
-            ->where('is_available', false)
-            ->exists();
 
-        if ($availability) {
-            Notification::make()
-                ->title('Hiba')
-                ->body('A kiválasztott időszakban az autó nem elérhető.')
-                ->danger()
-                ->send();
+        if ($record->start_date !== $data['start_date'] || $record->end_date !== $data['end_date']) {
+            $availability = Availability::whereCarId($data['car_id'])->whereBetween('date', [$data['start_date'], $data['end_date']])
+                ->where('is_available', false)
+                ->exists();
 
-            $this->halt();
+            if ($availability) {
+                Notification::make()
+                    ->title('Hiba')
+                    ->body('A kiválasztott időszakban az autó nem elérhető.')
+                    ->danger()
+                    ->send();
+
+                $this->halt();
+            }
         }
 
-        return $data;
+        $record->update($data);
+
+        return $record;
     }
 }

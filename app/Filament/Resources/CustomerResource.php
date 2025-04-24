@@ -66,7 +66,6 @@ class CustomerResource extends Resource
                     ->maxLength(255),
                 TextInput::make('address')
                     ->label('Cím')
-
                     ->maxLength(255),
                 TextInput::make('address_number')
                     ->label('Házszám')
@@ -92,6 +91,9 @@ class CustomerResource extends Resource
                 TextInput::make('born_day')
                     ->label('Születési nap')
                     ->maxLength(2),
+                TextInput::make('mother_name')
+                    ->label('Anyja neve')
+                    ->maxLength(255),
                 TextInput::make('license_number')
                     ->label('Jogosítvány száma')
                     ->maxLength(255),

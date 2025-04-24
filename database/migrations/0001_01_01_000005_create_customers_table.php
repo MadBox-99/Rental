@@ -29,6 +29,7 @@ return new class extends Migration
             $table->integer('born_year')->nullable(); // Születési év
             $table->integer('born_month')->nullable(); // Születési hónap
             $table->integer('born_day')->nullable(); // Születési nap
+            $table->string('mother_name')->nullable(); // Anyja neve
             $table->string('license_number')->nullable(); // Jogosítvány száma
             $table->date('license_issue_date')->nullable(); // Jogosítvány kiállításának dátuma
             $table->date('license_expiry_date')->nullable(); // Jogosítvány lejárati dátuma

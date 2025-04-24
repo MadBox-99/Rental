@@ -40,7 +40,8 @@
             <h1 style="text-align: center; font-size: 24px; font-weight: bold;">Egyedi Bérleti Szerződés <img
                     src="data:image/png;base64,{{ base64_encode(Vite::content('resources/img/logo.png')) }}"
                     alt="Fem Cars Logo" style="display: block; margin: 0 auto; width: 150px;"></h1>
-            <p style="text-align: center; font-size: 14px;">............................számú GÉPJÁRMŰ BÉRLETI SZERZŐDÉS
+            <p style="text-align: center; font-size: 14px;"> CS{{ str_pad($order->id, 4, '0', STR_PAD_LEFT) }} számú
+                GÉPJÁRMŰ BÉRLETI SZERZŐDÉS
             </p>
 
         </header>
@@ -82,52 +83,66 @@
             <table style="width: 100%; border-collapse: collapse; font-size: 12px;">
                 <tr>
                     <td style="border: 1px solid #000; padding: 5px; width: 25%;">Cég név:</td>
-                    <td style="border: 1px solid #000; padding: 5px; width: 25%;"></td>
+                    <td style="border: 1px solid #000; padding: 5px; width: 25%;">{{ $order->user->company_name }}</td>
                     <td style="border: 1px solid #000; padding: 5px; width: 25%;">Név:</td>
                     <td style="border: 1px solid #000; padding: 5px; width: 25%;">{{ $order->customer->full_name }}</td>
                 </tr>
                 <tr>
                     <td style="border: 1px solid #000; padding: 5px; width: 25%;">Cégjegyzék sz.:</td>
-                    <td style="border: 1px solid #000; padding: 5px; width: 25%;"></td>
+                    <td style="border: 1px solid #000; padding: 5px; width: 25%;">
+                        {{ $order->user->company_registration_number }}</td>
                     <td style="border: 1px solid #000; padding: 5px; width: 25%;">Születési hely, idő:</td>
                     <td style="border: 1px solid #000; padding: 5px; width: 25%;">{{ $order->customer->born_place }} ,
                         {{ $order->customer->year }}-{{ $order->customer->month }}-{{ $order->customer->day }}</td>
                 </tr>
                 <tr>
                     <td style="border: 1px solid #000; padding: 5px; width: 25%;">Székhely:</td>
-                    <td style="border: 1px solid #000; padding: 5px; width: 25%;"></td>
+                    <td style="border: 1px solid #000; padding: 5px; width: 25%;">{{ $order->user->company_address }}
+                    </td>
                     <td style="border: 1px solid #000; padding: 5px; width: 25%;">Anyja neve:</td>
-                    <td style="border: 1px solid #000; padding: 5px; width: 25%;"></td>
+                    <td style="border: 1px solid #000; padding: 5px; width: 25%;">{{ $order->customer->mother_name }}
+                    </td>
                 </tr>
                 <tr>
                     <td style="border: 1px solid #000; padding: 5px; width: 25%;">Adószám:</td>
-                    <td style="border: 1px solid #000; padding: 5px; width: 25%;"></td>
+                    <td style="border: 1px solid #000; padding: 5px; width: 25%;">
+                        {{ $order->user->company_tax_number }}
+                    </td>
                     <td style="border: 1px solid #000; padding: 5px; width: 25%;">Szem. ig. száma:</td>
-                    <td style="border: 1px solid #000; padding: 5px; width: 25%;"></td>
+                    <td style="border: 1px solid #000; padding: 5px; width: 25%;">
+                        {{ $order->customer->id_card_number }}
+                    </td>
                 </tr>
                 <tr>
                     <td style="border: 1px solid #000; padding: 5px; width: 25%;">Képviseli:</td>
-                    <td style="border: 1px solid #000; padding: 5px; width: 25%;"></td>
+                    <td style="border: 1px solid #000; padding: 5px; width: 25%;">{{ $order->user->representative }}
+                    </td>
                     <td style="border: 1px solid #000; padding: 5px; width: 25%;">Jogosítvány száma:</td>
-                    <td style="border: 1px solid #000; padding: 5px; width: 25%;"></td>
+                    <td style="border: 1px solid #000; padding: 5px; width: 25%;">
+                        {{ $order->customer->license_number }}
+                    </td>
                 </tr>
                 <tr>
                     <td style="border: 1px solid #000; padding: 5px; width: 25%;">Kapcsolattartó:</td>
-                    <td style="border: 1px solid #000; padding: 5px; width: 25%;"></td>
+                    <td style="border: 1px solid #000; padding: 5px; width: 25%;">{{ $order->user->contact_person }}
+                    </td>
                     <td style="border: 1px solid #000; padding: 5px; width: 25%;">Cím:</td>
-                    <td style="border: 1px solid #000; padding: 5px; width: 25%;"></td>
+                    <td style="border: 1px solid #000; padding: 5px; width: 25%;">
+                        {{ $order->customer->postal_code }} {{ $order->customer->city }},
+                        {{ $order->customer->address }} {{ $order->customer->address_number }}
+                        {{ $order->customer->address_extra }}</td>
                 </tr>
                 <tr>
                     <td style="border: 1px solid #000; padding: 5px; width: 25%;">E-mail cím:</td>
-                    <td style="border: 1px solid #000; padding: 5px; width: 25%;"></td>
+                    <td style="border: 1px solid #000; padding: 5px; width: 25%;">{{ $order->user->email }}</td>
                     <td style="border: 1px solid #000; padding: 5px; width: 25%;">E-mail cím:</td>
-                    <td style="border: 1px solid #000; padding: 5px; width: 25%;"></td>
+                    <td style="border: 1px solid #000; padding: 5px; width: 25%;">{{ $order->customer->email }}</td>
                 </tr>
                 <tr>
                     <td style="border: 1px solid #000; padding: 5px; width: 25%;">Telefonszám:</td>
-                    <td style="border: 1px solid #000; padding: 5px; width: 25%;"></td>
+                    <td style="border: 1px solid #000; padding: 5px; width: 25%;">{{ $order->user->phone }}</td>
                     <td style="border: 1px solid #000; padding: 5px; width: 25%;">Telefonszám:</td>
-                    <td style="border: 1px solid #000; padding: 5px; width: 25%;"></td>
+                    <td style="border: 1px solid #000; padding: 5px; width: 25%;">{{ $order->customer->phone }}</td>
                 </tr>
             </table>
         </section>
@@ -145,11 +160,13 @@
                     <td style="border: 1px solid #000; padding: 5px; width: 25%;">Típus/modell:</td>
                     <td style="border: 1px solid #000; padding: 5px; width: 25%;">{{ $order->car->model }}</td>
                     <td style="border: 1px solid #000; padding: 5px; width: 25%;">Forg. engedély szám:</td>
-                    <td style="border: 1px solid #000; padding: 5px; width: 25%;"></td>
+                    <td style="border: 1px solid #000; padding: 5px; width: 25%;">
+                        {{ $order->car->technical_validity_number }}</td>
                 </tr>
                 <tr>
                     <td style="border: 1px solid #000; padding: 5px; width: 25%;">Alvázszám:</td>
-                    <td style="border: 1px solid #000; padding: 5px; width: 25%;">{{ $order->car->chassis_number }}</td>
+                    <td style="border: 1px solid #000; padding: 5px; width: 25%;">{{ $order->car->chassis_number }}
+                    </td>
                     <td style="border: 1px solid #000; padding: 5px; width: 25%;">Műszaki érvényesség:</td>
                     <td style="border: 1px solid #000; padding: 5px; width: 25%;">{{ $order->car->technical_validity }}
                     </td>
@@ -217,91 +234,107 @@
                 <tr>
                     <td style="border: 1px solid #000; padding: 5px;">Gépjármű finanszírozás kamata és amortizációs
                         költségek</td>
-                    <td style="border: 1px solid #000; padding: 5px;">tartalmazza</td>
+                    <td style="border: 1px solid #000; padding: 5px; background-color: #2c3e50; color: #fff;">
+                        tartalmazza</td>
                     <td style="border: 1px solid #000; padding: 5px;">nem tartalmazza</td>
                 </tr>
                 <tr>
                     <td style="border: 1px solid #000; padding: 5px;">Adminisztrációs és ügyintézési díjak</td>
-                    <td style="border: 1px solid #000; padding: 5px;">tartalmazza</td>
+                    <td style="border: 1px solid #000; padding: 5px; background-color: #2c3e50; color: #fff;">
+                        tartalmazza</td>
                     <td style="border: 1px solid #000; padding: 5px;">nem tartalmazza</td>
                 </tr>
                 <tr>
                     <td style="border: 1px solid #000; padding: 5px;">Kötelező adók, járulékok, illetékek, biztosítások
                         díjai</td>
-                    <td style="border: 1px solid #000; padding: 5px;">tartalmazza</td>
+                    <td style="border: 1px solid #000; padding: 5px; background-color: #2c3e50; color: #fff;">
+                        tartalmazza</td>
                     <td style="border: 1px solid #000; padding: 5px;">nem tartalmazza</td>
                 </tr>
                 <tr>
                     <td style="border: 1px solid #000; padding: 5px;">Országúti segélyszolgálat (assistance)</td>
-                    <td style="border: 1px solid #000; padding: 5px;">tartalmazza</td>
+                    <td style="border: 1px solid #000; padding: 5px; background-color: #2c3e50; color: #fff;">
+                        tartalmazza</td>
                     <td style="border: 1px solid #000; padding: 5px;">nem tartalmazza</td>
                 </tr>
                 <tr>
                     <td style="border: 1px solid #000; padding: 5px;">Gyár által kötelezően előírt karbantartási és
                         javítási költségek</td>
-                    <td style="border: 1px solid #000; padding: 5px;">tartalmazza</td>
+                    <td style="border: 1px solid #000; padding: 5px; background-color: #2c3e50; color: #fff;">
+                        tartalmazza</td>
                     <td style="border: 1px solid #000; padding: 5px;">nem tartalmazza</td>
                 </tr>
                 <tr>
                     <td style="border: 1px solid #000; padding: 5px;">Cseregépjármű átány</td>
                     <td style="border: 1px solid #000; padding: 5px;">tartalmazza</td>
-                    <td style="border: 1px solid #000; padding: 5px;">nem tartalmazza</td>
+                    <td style="border: 1px solid #000; padding: 5px; background-color: #2c3e50; color: #fff;">nem
+                        tartalmazza</td>
                 </tr>
                 <tr>
                     <td style="border: 1px solid #000; padding: 5px;">Éves magyarországi autópálya díjat</td>
-                    <td style="border: 1px solid #000; padding: 5px;">tartalmazza</td>
+                    <td style="border: 1px solid #000; padding: 5px; background-color: #2c3e50; color: #fff;">
+                        tartalmazza</td>
                     <td style="border: 1px solid #000; padding: 5px;">nem tartalmazza</td>
                 </tr>
                 <tr>
                     <td style="border: 1px solid #000; padding: 5px;">Téli-nyári gumicsere szerelési és tárolási
                         költséggel</td>
-                    <td style="border: 1px solid #000; padding: 5px;">tartalmazza</td>
+                    <td style="border: 1px solid #000; padding: 5px; background-color: #2c3e50; color: #fff;">
+                        tartalmazza</td>
                     <td style="border: 1px solid #000; padding: 5px;">nem tartalmazza</td>
                 </tr>
                 <tr>
                     <td style="border: 1px solid #000; padding: 5px;">Közlekedési és egyéb bírságok díjait</td>
-                    <td style="border: 1px solid #000; padding: 5px;">tartalmazza</td>
-                    <td style="border: 1px solid #000; padding: 5px;">nem tartalmazza</td>
+                    <td style="border: 1px solid #000; padding: 5px;">
+                        tartalmazza</td>
+                    <td style="border: 1px solid #000; padding: 5px; background-color: #2c3e50; color: #fff;">nem
+                        tartalmazza</td>
                 </tr>
                 <tr>
                     <td style="border: 1px solid #000; padding: 5px;">Hozom-viszem sofőrszolgálatot</td>
                     <td style="border: 1px solid #000; padding: 5px;">tartalmazza</td>
-                    <td style="border: 1px solid #000; padding: 5px;">nem tartalmazza</td>
+                    <td style="border: 1px solid #000; padding: 5px; background-color: #2c3e50; color: #fff;">nem
+                        tartalmazza</td>
                 </tr>
                 <tr>
                     <td style="border: 1px solid #000; padding: 5px;">Casco önrészesedést 10%, de minimum 200.000 Ft.
                     </td>
                     <td style="border: 1px solid #000; padding: 5px;">tartalmazza</td>
-                    <td style="border: 1px solid #000; padding: 5px;">nem tartalmazza</td>
+                    <td style="border: 1px solid #000; padding: 5px; background-color: #2c3e50; color: #fff;">nem
+                        tartalmazza</td>
                 </tr>
                 <tr>
                     <td style="border: 1px solid #000; padding: 5px;">Fékbetét csere</td>
-                    <td style="border: 1px solid #000; padding: 5px;">tartalmazza</td>
+                    <td style="border: 1px solid #000; padding: 5px;background-color: #2c3e50; color: #fff;">
+                        tartalmazza</td>
                     <td style="border: 1px solid #000; padding: 5px;">nem tartalmazza</td>
                 </tr>
                 <tr>
                     <td style="border: 1px solid #000; padding: 5px;">Féktárcsa csere</td>
-                    <td style="border: 1px solid #000; padding: 5px;">tartalmazza</td>
+                    <td style="border: 1px solid #000; padding: 5px; background-color: #2c3e50; color: #fff;">
+                        tartalmazza</td>
                     <td style="border: 1px solid #000; padding: 5px;">nem tartalmazza</td>
                 </tr>
                 <tr>
                     <td style="border: 1px solid #000; padding: 5px;">Téli/nyári gumiabroncs cseréje</td>
-                    <td style="border: 1px solid #000; padding: 5px;">tartalmazza</td>
+                    <td style="border: 1px solid #000; padding: 5px; background-color: #2c3e50; color: #fff;">
+                        tartalmazza</td>
                     <td style="border: 1px solid #000; padding: 5px;">nem tartalmazza</td>
                 </tr>
                 <tr>
                     <td style="border: 1px solid #000; padding: 5px;">Defekt javítás + a hozzá tartozó hozom-viszem
                         szolgálatás</td>
                     <td style="border: 1px solid #000; padding: 5px;">tartalmazza</td>
-                    <td style="border: 1px solid #000; padding: 5px;">nem tartalmazza</td>
+                    <td style="border: 1px solid #000; padding: 5px;background-color: #2c3e50; color: #fff;">nem
+                        tartalmazza</td>
                 </tr>
             </table>
         </section>
 
         <footer>
             <p style="text-align: center; font-size: 10px;">Fem-Cars Hungary Kft. | 2083 Solymár, Mátyás király utca
-                45.
-                | femcars@femcars.hu</p>
+                45. Adószám: 23769807-2-13
+                femcars@gmail.com</p>
         </footer>
 
         <div style="page-break-before: always;"></div>
@@ -419,8 +452,8 @@
         </section>
         <footer>
             <p style="text-align: center; font-size: 10px;">Fem-Cars Hungary Kft. | 2083 Solymár, Mátyás király utca
-                45.
-                | femcars@femcars.hu</p>
+                45. Adószám: 23769807-2-13
+                | femcars@gmail.com</p>
         </footer>
     </body>
 

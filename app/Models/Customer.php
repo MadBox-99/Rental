@@ -22,6 +22,7 @@ class Customer extends Model
         'born_year', // Születési év
         'born_month', // Születési hónap
         'born_day', // Születési nap
+        'mother_name', // Anyja neve
         'license_number', // Jogosítvány száma
         'license_issue_date', // Jogosítvány kiállításának dátuma
         'license_expiry_date', // Jogosítvány lejárati dátuma
