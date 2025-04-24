@@ -33,6 +33,7 @@ class Car extends Model
         'color',
         'doors',
         'slug',
+        'short_description',
         'description',
         'license_plate',
         'technical_validity',

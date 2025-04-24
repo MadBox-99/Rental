@@ -25,7 +25,23 @@ class EditOrder extends EditRecord
                 ->action(function (Order $order) {
 
                     $pdf = Pdf::loadView('pdf.order.contact', ['order' => $order], encoding: 'UTF-8');
+                    $pdf->setPaper('A4', 'portrait');
+                    $pdf->setOption('isHtml5ParserEnabled', true);
+                    $pdf->setOption('isUnicodeEnabled', true);
+                    // Save the PDF to a temporary location
+                    $filePath = 'pdfs/orders/'.uniqid().'.pdf';
+                    Storage::disk('public')->put($filePath, $pdf->output());
 
+                    // Return the URL to the frontend
+                    return redirect(Storage::url($filePath));
+                }),
+            Action::make('Nyilatkozat generálása')
+                ->action(function (Order $order) {
+
+                    $pdf = Pdf::loadView('pdf.order.declaration', ['order' => $order], encoding: 'UTF-8');
+                    $pdf->setPaper('A4', 'portrait');
+                    $pdf->setOption('isHtml5ParserEnabled', true);
+                    $pdf->setOption('isUnicodeEnabled', true);
                     // Save the PDF to a temporary location
                     $filePath = 'pdfs/orders/'.uniqid().'.pdf';
                     Storage::disk('public')->put($filePath, $pdf->output());
@@ -39,6 +55,9 @@ class EditOrder extends EditRecord
     protected function mutateFormDataBeforeSave(array $data): array
     {
 
+        if (! isset($data['user_id'])) {
+            $data['user_id'] = Auth::user()->id;
+        }
         if ($data['user_id'] === null) {
             $data['user_id'] = Auth::user()->id;
         }

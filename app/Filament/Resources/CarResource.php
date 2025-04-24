@@ -109,6 +109,27 @@ class CarResource extends Resource
                     ->image()
                     ->openable()
                     ->columnSpanFull(),
+
+                RichEditor::make('short_description')
+                    ->label('Rövid leírás')
+                    ->toolbarButtons([
+                        'attachFiles',
+                        'blockquote',
+                        'bold',
+                        'bulletList',
+                        'codeBlock',
+                        'h2',
+                        'h3',
+                        'italic',
+                        'link',
+                        'orderedList',
+                        'redo',
+                        'strike',
+                        'underline',
+                        'undo',
+                    ])
+                    ->fileAttachmentsVisibility('public')
+                    ->columnSpanFull(),
                 RichEditor::make('description')
                     ->label('Leírás')
                     ->toolbarButtons([

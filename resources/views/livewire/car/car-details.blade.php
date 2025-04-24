@@ -4,8 +4,11 @@
     <div class="flex flex-col md:flex-row items-center md:items-start">
         <!-- Car Image -->
         <div class="w-full md:w-1/2">
-            <img src="{{ Storage::url($car->images[0] ?? 'placeholder.jpeg') }}" alt="{{ $car->model }}"
-                class="w-full h-auto">
+            @empty($car->images)
+                <img src="https://placehold.co/600x400?text=Hello+World" alt="Default Car Image" class="w-full h-auto">
+            @else
+                <img src="{{ Storage::url($car->images[0]) }}" alt="{{ $car->model }}" class="w-full h-auto">
+            @endempty
         </div>
 
         <!-- Car Details -->

@@ -20,6 +20,9 @@ class EditCustomer extends EditRecord
 
     protected function mutateFormDataBeforeSave(array $data): array
     {
+        if (! isset($data['user_id'])) {
+            $data['user_id'] = Auth::user()->id;
+        }
         if ($data['user_id'] === null) {
             $data['user_id'] = Auth::user()->id;
         }

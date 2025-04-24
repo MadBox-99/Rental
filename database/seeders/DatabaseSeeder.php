@@ -26,7 +26,7 @@ class DatabaseSeeder extends Seeder
             'guard_name' => 'web',
         ]);
 
-        Role::create([
+        $serviceRole = Role::create([
             'name' => 'service',
             'guard_name' => 'web',
         ]);
@@ -38,13 +38,28 @@ class DatabaseSeeder extends Seeder
             'password' => Hash::make('password'),
             'email_verified_at' => now(),
         ]);
+
+        $service = User::factory()->create([
+            'name' => 'Test Service',
+            'email' => 'service@service.com',
+            'phone' => '123456789',
+            'password' => Hash::make('password'),
+            'email_verified_at' => now(),
+        ]);
+
         foreach (['view-any', 'view', 'create', 'update', 'delete', 'delete-any', 'replicate', 'restore', 'restore-any', 'reorder', 'force-delete', 'force-delete-any'] as $value) {
             Permission::create(['guard_name' => GuardName::WEB->value, 'name' => $value.' Role']);
             Permission::create(['guard_name' => GuardName::WEB->value, 'name' => $value.' Permission']);
         }
         $admin->assignRole('admin');
+        $service->assignRole('service');
         $adminRole->givePermissionTo(Permission::all());
-
+        $serviceRole->givePermissionTo([Permission::whereName('view Car')->get(), Permission::whereName('view Order')->get(), Permission::whereName('view Availability')->get(), Permission::whereName('view Location')->get(), Permission::whereName('view Customer')->get()]);
+        $serviceRole->givePermissionTo([Permission::whereName('view-any Car')->get(), Permission::whereName('view-any Order')->get(), Permission::whereName('view-any Availability')->get(), Permission::whereName('view-any Location')->get(), Permission::whereName('view-any Customer')->get()]);
+        $serviceRole->givePermissionTo([Permission::whereName('create Car')->get(), Permission::whereName('create Order')->get(), Permission::whereName('create Availability')->get(), Permission::whereName('create Location')->get(), Permission::whereName('create Customer')->get()]);
+        $serviceRole->givePermissionTo([Permission::whereName('update Car')->get(), Permission::whereName('update Order')->get(), Permission::whereName('update Availability')->get(), Permission::whereName('update Location')->get(), Permission::whereName('update Customer')->get()]);
+        $serviceRole->givePermissionTo([Permission::whereName('delete Car')->get(), Permission::whereName('delete Order')->get(), Permission::whereName('delete Availability')->get(), Permission::whereName('delete Location')->get(), Permission::whereName('delete Customer')->get()]);
+        $serviceRole->givePermissionTo([Permission::whereName('delete-any Car')->get(), Permission::whereName('delete-any Order')->get(), Permission::whereName('delete-any Availability')->get(), Permission::whereName('delete-any Location')->get(), Permission::whereName('delete-any Customer')->get()]);
         $this->call([
             CarSeeder::class,
             AttributesSeeder::class,

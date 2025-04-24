@@ -1,32 +1,24 @@
 <div class="grid grid-cols-1 md:grid-cols-3 gap-6 bg-gray-100 p-6">
-    <div class="bg-white rounded-lg shadow-md p-6 text-center">
-        <img src="https://csereautoberles.hu/wp-content/uploads/2025/04/front.webp" alt="Skoda Octavia Kombi"
-            class="mx-auto mb-4">
-        <h3 class="text-red-600 font-bold text-lg">Skoda Octavia Kombi</h3>
-        <p class="text-gray-700 text-sm mb-4">Tágas, praktikus és megbízható – ideális választás családoknak
-            vagy ha nagyobb csomagtérre van szüksége a hétköznapokban. Kényelmes utazás, modern
-            felszereltség és gazdaságos fogyasztás jellemzi.</p>
-        <a href="{{ route('cars.show', ['slug' => 'skoda-octavia-combi']) }}"
-            class="bg-red-500 text-white py-2 px-4 rounded-lg">FOGLALÁS</a>
-    </div>
-    <div class="bg-white rounded-lg shadow-md p-6 text-center">
-        <img src="https://csereautoberles.hu/wp-content/uploads/2025/04/front-1.webp" alt="Skoda Octavia RS"
-            class="mx-auto mb-4">
-        <h3 class="text-red-600 font-bold text-lg">Skoda Octavia RS</h3>
-        <p class="text-gray-700 text-sm mb-4">Ha sportos élményt keres a szervizelés ideje alatt is:
-            dinamikus vezetés, elegáns megjelenés és prémium komfort egyben. Az Octavia RS tökéletes
-            azoknak, akik nem csak helyettesítőt, hanem élményt is szeretnének.</p>
-        <a href="{{ route('cars.show', ['slug' => 'skoda-octavia-rs']) }}"
-            class="bg-red-500 text-white py-2 px-4 rounded-lg">FOGLALÁS</a>
-    </div>
-    <div class="bg-white rounded-lg shadow-md p-6 text-center">
-        <img src="https://csereautoberles.hu/wp-content/uploads/2025/04/front-2.webp" alt="Skoda Superb"
-            class="mx-auto mb-4">
-        <h3 class="text-red-600 font-bold text-lg">Skoda Superb</h3>
-        <p class="text-gray-700 text-sm mb-4">Felsőkategóriás kényelem a mindennapokra – a Superb
-            csereautóként is luxusérzetet nyújt. Tágas belső tér, fejlett vezetéstámogató rendszerek és
-            kimagasló utazási élmény várja.</p>
-        <a href="{{ route('cars.show', ['slug' => 'skoda-superb']) }}"
-            class="bg-red-500 text-white py-2 px-4 rounded-lg">FOGLALÁS</a>
-    </div>
+    @foreach ($cars as $car)
+        <div class="bg-white rounded-lg shadow-md p-6 text-center flex flex-col justify-between"
+            style="min-height: 650px;">
+            <div>
+                @empty($cars->images)
+                    <img src="https://placehold.co/600x400?text=Hello+World" alt="Default Car Image" class="w-full h-auto">
+                @else
+                    <img src="{{ Vite::asset($car->images[0]) }}" alt="{{ $car->brand }} {{ $car->model }}"
+                        class="mx-auto mb-4">
+                @endempty
+                <h3 class="text-red-600 font-bold text-lg py-5 my-2">{{ $car->brand }} {{ $car->model }}</h3>
+                <p class="text-gray-700  mb-4 text-left text-lg font-semibold">
+                    {{ $car->short_description }}
+                </p>
+                <div>
+                    <a href="{{ route('cars.show', ['slug' => $car->slug]) }}"
+                        class="bg-red-500 text-white py-2 px-4 rounded-lg">MEGNÉZEM</a>
+                </div>
+            </div>
+        </div>
+    @endforeach
+
 </div>

@@ -35,16 +35,22 @@
                             @foreach ($cars as $car)
                                 <tr class="bg-white hover:bg-gray-100">
                                     <td class="px-4 py-2 border border-gray-300">
-                                        <a href="{{ route('cars.show', ['slug' => $car->slug]) }}" class="block">
-                                            <img src="{{ asset('images/cars/' . $car->id . '.png') }}"
-                                                alt="{{ $car->model }}" class="h-12 mx-auto">
+                                        <a href="{{ route('cars.show', ['slug' => $car->slug]) }}"
+                                            class="block w-24 h-12 mx-auto">
+                                            @empty($car->images)
+                                                <img src="https://placehold.co/600x400?text=Hello+World"
+                                                    alt="Default Car Image" class="h-12 mx-auto w-24">
+                                            @else
+                                                <img src="{{ Vite::asset($car->images[0]) }}" alt="Skoda Octavia Kombi"
+                                                    class="h-12 mx-auto w-24">
+                                            @endempty
                                         </a>
                                     </td>
                                     <td class="px-4 py-2 border border-gray-300">
                                         <a
                                             href="{{ route('cars.show', ['slug' => $car->slug]) }}"class="text-blue-600 hover:underline">{{ $car->brand }}
                                             {{ $car->model }}</a>
-                                        <p class="text-gray-600">Rendelkezésre álló autók: {{ $car->transmission }}</p>
+                                        {{--  <p class="text-gray-600">Rendelkezésre álló autók: {{ $car->transmission }}</p> --}}
                                     </td>
 
                                     @livewire('car-availability-calendar', ['car' => $car, 'displayDays' => 30])

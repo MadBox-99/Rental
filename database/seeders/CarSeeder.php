@@ -26,6 +26,8 @@ class CarSeeder extends Seeder
             'technical_validity' => now()->addYear(),
             'chassis_number' => 'TS123456789012341',
             'engine_number' => 'TS123456789012341',
+            'short_description' => 'Tágas, praktikus és megbízható – ideális választás családoknak vagy ha nagyobb csomagtérre van szüksége a hétköznapokban. Kényelmes utazás, modern felszereltség és gazdaságos fogyasztás jellemzi.',
+
             'owner' => 'John Doe',
         ]);
         Car::factory()->create([
@@ -42,6 +44,7 @@ class CarSeeder extends Seeder
             'technical_validity' => now()->addYear(),
             'chassis_number' => 'TS123456789012342',
             'engine_number' => 'TS123456789012342',
+            'short_description' => 'Ha sportos élményt keres a szervizelés ideje alatt is: dinamikus vezetés, elegáns megjelenés és prémium komfort egyben. Az Octavia RS tökéletes azoknak, akik nem csak helyettesítőt, hanem élményt is szeretnének.',
             'owner' => 'John Doe',
         ]);
         Car::factory()->create([
@@ -58,6 +61,7 @@ class CarSeeder extends Seeder
             'technical_validity' => now()->addYear(),
             'chassis_number' => 'TS123456789012343',
             'engine_number' => 'TS123456789012343',
+            'short_description' => 'Felsőkategóriás kényelem a mindennapokra – a Superb csereautóként is luxusérzetet nyújt. Tágas belső tér, fejlett vezetéstámogató rendszerek és kimagasló utazási élmény várja.',
             'owner' => 'John Doe',
         ]);
 

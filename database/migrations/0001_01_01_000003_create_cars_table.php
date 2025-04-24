@@ -24,6 +24,7 @@ return new class extends Migration
             $table->string('color')->nullable();
             $table->integer('doors')->nullable();
             $table->json('images')->nullable(); // Opcióként leírás
+            $table->text('short_description')->nullable(); // Opcióként leírás
             $table->longText('description')->nullable(); // Opcióként leírás
             $table->string('license_plate')->unique()->nullable(false); // Forgalmi rendszám
             $table->date('technical_validity')->nullable(); // Műszaki érvényesség dátuma
