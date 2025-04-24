@@ -21,7 +21,7 @@ class AvailabilitySeeder extends Seeder
                 Availability::create([
                     'car_id' => $car->id,
                     'date' => now()->subDays($i + 1)->format('Y-m-d'), // Subtract days for past dates
-                    'is_available' => (bool) random_int(0, 1), // Random true or false
+                    'is_available' => 1, // Random true or false
                 ]);
             }
 
@@ -30,7 +30,7 @@ class AvailabilitySeeder extends Seeder
                 Availability::create([
                     'car_id' => $car->id,
                     'date' => now()->addDays($i)->format('Y-m-d'), // Add days for future dates
-                    'is_available' => (bool) random_int(0, 1), // Random true or false
+                    'is_available' => 1, // Random true or false
                 ]);
             }
         }
