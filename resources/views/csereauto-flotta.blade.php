@@ -41,7 +41,7 @@
                                                 <img src="https://placehold.co/600x400?text=Hello+World"
                                                     alt="Default Car Image" class="h-12 mx-auto w-24">
                                             @else
-                                                <img src="{{ asset($car->images[0]) }}" alt="Car Image"
+                                                <img src="{{ asset('storage' . $car->images[0]) }}" alt="Car Image"
                                                     class="h-12 mx-auto w-24">
                                             @endempty
                                         </a>
