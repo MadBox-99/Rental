@@ -86,7 +86,7 @@
     <!-- Description -->
     <div class="mt-12">
         <h2 class="text-2xl font-semibold text-center mb-4">{{ $car->brand }} {{ $car->model }}</h2>
-        <p class="text-gray-700 mb-4">{{ $car->description }}</p>
+        <p class="text-gray-700 mb-4">{!! $car->description !!}</p>
 
         <p class="mt-4 text-gray-700">Bérelje ki a <strong>{{ $car->brand }} {{ $car->model }}</strong>-et, ha nem
             szeretne kompromisszumot kötni a kényelem, a megjelenés és a vezetési élmény terén. Ez a modell minden
