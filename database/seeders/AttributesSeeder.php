@@ -13,7 +13,7 @@ class AttributesSeeder extends Seeder
      */
     public function run(): void
     {
-        Car::all()->each(function ($car) {
+        Car::all()->each(function ($car): void {
             $car->attributes()->attach(
                 Attribute::factory()->count(3)->create()->pluck('id')->toArray()
             );

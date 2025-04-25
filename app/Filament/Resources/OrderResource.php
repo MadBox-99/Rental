@@ -2,6 +2,15 @@
 
 namespace App\Filament\Resources;
 
+use Filament\Tables\Actions\EditAction;
+use Filament\Tables\Actions\BulkActionGroup;
+use Filament\Tables\Actions\DeleteBulkAction;
+use App\Filament\Resources\OrderResource\Pages\ListOrders;
+use App\Filament\Resources\OrderResource\Pages\CreateOrder;
+use App\Filament\Resources\OrderResource\Pages\EditOrder;
+use DateTimeInterface;
+use Carbon\WeekDay;
+use Carbon\Month;
 use App\Filament\Resources\OrderResource\Pages;
 use App\Models\Availability;
 use App\Models\Car;
@@ -221,11 +230,11 @@ class OrderResource extends Resource
                     }),
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                EditAction::make(),
             ])
             ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+                BulkActionGroup::make([
+                    DeleteBulkAction::make(),
                 ]),
             ]);
     }
@@ -240,19 +249,19 @@ class OrderResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListOrders::route('/'),
-            'create' => Pages\CreateOrder::route('/create'),
-            'edit' => Pages\EditOrder::route('/{record}/edit'),
+            'index' => ListOrders::route('/'),
+            'create' => CreateOrder::route('/create'),
+            'edit' => EditOrder::route('/{record}/edit'),
         ];
     }
 
-    public static function getAvailableCarsData($month)
+    public static function getAvailableCarsData(DateTimeInterface|WeekDay|Month|string|int|float|null $month): array
     {
         $startOfMonth = Carbon::parse($month)->startOfMonth();
         $endOfMonth = Carbon::parse($month)->endOfMonth();
         $dates = Carbon::parse($startOfMonth)->daysUntil($endOfMonth);
 
-        $cars = Car::all()->map(function ($car) use ($dates) {
+        $cars = Car::all()->map(function ($car) use ($dates): Car {
             $car->availability = $dates->map(function ($date) use ($car) {
                 $isAvailable = ! $car->availabilities->whereDate('date', '<=', $date)
                     ->whereDate('date', '>=', $date)
@@ -264,6 +273,6 @@ class OrderResource extends Resource
             return $car;
         });
 
-        return compact('dates', 'cars');
+        return ['dates' => $dates, 'cars' => $cars];
     }
 }

@@ -2,6 +2,12 @@
 
 namespace App\Filament\Resources;
 
+use Filament\Tables\Actions\EditAction;
+use Filament\Tables\Actions\BulkActionGroup;
+use Filament\Tables\Actions\DeleteBulkAction;
+use App\Filament\Resources\AttributeResource\Pages\ListAttributes;
+use App\Filament\Resources\AttributeResource\Pages\CreateAttribute;
+use App\Filament\Resources\AttributeResource\Pages\EditAttribute;
 use App\Filament\Resources\AttributeResource\Pages;
 use App\Models\Attribute;
 use Filament\Forms\Components\TextInput;
@@ -63,11 +69,11 @@ class AttributeResource extends Resource
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                EditAction::make(),
             ])
             ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+                BulkActionGroup::make([
+                    DeleteBulkAction::make(),
                 ]),
             ]);
     }
@@ -82,9 +88,9 @@ class AttributeResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListAttributes::route('/'),
-            'create' => Pages\CreateAttribute::route('/create'),
-            'edit' => Pages\EditAttribute::route('/{record}/edit'),
+            'index' => ListAttributes::route('/'),
+            'create' => CreateAttribute::route('/create'),
+            'edit' => EditAttribute::route('/{record}/edit'),
         ];
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\AvailabilityResource\Pages;
 
+use Filament\Actions\CreateAction;
 use App\Filament\Resources\AvailabilityResource;
 use Filament\Actions;
 use Filament\Resources\Components\Tab;
@@ -14,7 +15,7 @@ class ListAvailabilities extends ListRecords
     protected function getHeaderActions(): array
     {
         return [
-            Actions\CreateAction::make(),
+            CreateAction::make(),
         ];
     }
 

@@ -2,6 +2,12 @@
 
 namespace App\Filament\Resources;
 
+use Filament\Tables\Actions\EditAction;
+use Filament\Tables\Actions\BulkActionGroup;
+use Filament\Tables\Actions\DeleteBulkAction;
+use App\Filament\Resources\CustomerResource\Pages\ListCustomers;
+use App\Filament\Resources\CustomerResource\Pages\CreateCustomer;
+use App\Filament\Resources\CustomerResource\Pages\EditCustomer;
 use App\Filament\Resources\CustomerResource\Pages;
 use App\Models\Customer;
 use Filament\Forms\Components\DatePicker;
@@ -111,8 +117,8 @@ class CustomerResource extends Resource
                     ->label('Fájlok')
                     ->multiple()
                     ->preserveFilenames()
-                    ->disabled(fn (Get $get) => $get('first_name') === null || $get('last_name') === null)
-                    ->directory('customers', fn (Get $get) => $get('first_name').'-'.$get('last_name'))
+                    ->disabled(fn (Get $get): bool => $get('first_name') === null || $get('last_name') === null)
+                    ->directory('customers')
                     ->openable()
                     ->downloadable()
                     ->reorderable()
@@ -162,10 +168,10 @@ class CustomerResource extends Resource
         ])->filters([
             //
         ])->actions([
-            Tables\Actions\EditAction::make(),
+            EditAction::make(),
         ])->bulkActions([
-            Tables\Actions\BulkActionGroup::make([
-                Tables\Actions\DeleteBulkAction::make(),
+            BulkActionGroup::make([
+                DeleteBulkAction::make(),
             ]),
         ]);
     }
@@ -180,9 +186,9 @@ class CustomerResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListCustomers::route('/'),
-            'create' => Pages\CreateCustomer::route('/create'),
-            'edit' => Pages\EditCustomer::route('/{record}/edit'),
+            'index' => ListCustomers::route('/'),
+            'create' => CreateCustomer::route('/create'),
+            'edit' => EditCustomer::route('/{record}/edit'),
         ];
     }
 }

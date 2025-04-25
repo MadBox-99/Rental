@@ -2,6 +2,12 @@
 
 namespace App\Filament\Resources;
 
+use Filament\Tables\Actions\EditAction;
+use Filament\Tables\Actions\BulkActionGroup;
+use Filament\Tables\Actions\DeleteBulkAction;
+use App\Filament\Resources\CarResource\Pages\ListCars;
+use App\Filament\Resources\CarResource\Pages\CreateCar;
+use App\Filament\Resources\CarResource\Pages\EditCar;
 use App\Filament\Resources\CarResource\Pages;
 use App\Models\Car;
 use Filament\Forms\Components\DatePicker;
@@ -40,19 +46,19 @@ class CarResource extends Resource
                     ->label('Márka')
                     ->live()
                     ->required()
-                    ->afterStateUpdated(fn (Set $set, Get $get) => $set('slug', Str::slug($get('brand').'-'.Str::slug($get('model')))))
+                    ->afterStateUpdated(fn (Set $set, Get $get): mixed => $set('slug', Str::slug($get('brand').'-'.Str::slug($get('model')))))
                     ->maxLength(255),
                 TextInput::make('model')
                     ->label('Model')
                     ->live()
                     ->required()
-                    ->afterStateUpdated(fn (Set $set, Get $get) => $set('slug', Str::slug($get('brand').'-'.Str::slug($get('model')))))
+                    ->afterStateUpdated(fn (Set $set, Get $get): mixed => $set('slug', Str::slug($get('brand').'-'.Str::slug($get('model')))))
                     ->maxLength(255),
                 TextInput::make('slug')
                     ->label('Slug')
                     ->unique('cars', 'slug', ignoreRecord: true)
-                    ->visible(fn (Get $get) => $get('brand') !== null && $get('model') !== null)
-                    ->afterStateUpdated(fn (Set $set, Get $get) => $set('slug', Str::slug($get('brand').'-'.Str::slug($get('model')))))
+                    ->visible(fn (Get $get): bool => $get('brand') !== null && $get('model') !== null)
+                    ->afterStateUpdated(fn (Set $set, Get $get): mixed => $set('slug', Str::slug($get('brand').'-'.Str::slug($get('model')))))
                     ->required()
                     ->maxLength(255),
                 TextInput::make('transmission')
@@ -104,11 +110,11 @@ class CarResource extends Resource
                     ->maxLength(255),
                 FileUpload::make('images')
                     ->label('Autó képek')
-                    ->visible(fn (Get $get) => $get('slug') !== null)
+                    ->visible(fn (Get $get): bool => $get('slug') !== null)
                     ->multiple()
                     ->reorderable()
                     ->preserveFilenames()
-                    ->directory(fn (Get $get) => 'cars/'.$get('slug'))
+                    ->directory(fn (Get $get): string => 'cars/'.$get('slug'))
                     ->maxFiles(10)
                     ->image()
                     ->openable()
@@ -215,11 +221,11 @@ class CarResource extends Resource
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                EditAction::make(),
             ])
             ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+                BulkActionGroup::make([
+                    DeleteBulkAction::make(),
                 ]),
             ]);
     }
@@ -234,9 +240,9 @@ class CarResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListCars::route('/'),
-            'create' => Pages\CreateCar::route('/create'),
-            'edit' => Pages\EditCar::route('/{record}/edit'),
+            'index' => ListCars::route('/'),
+            'create' => CreateCar::route('/create'),
+            'edit' => EditCar::route('/{record}/edit'),
         ];
     }
 }

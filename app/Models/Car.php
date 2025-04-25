@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Database\Factories\CarFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -10,14 +11,14 @@ use Illuminate\Support\Str;
 
 class Car extends Model
 {
-    /** @use HasFactory<\Database\Factories\CarFactory> */
+    /** @use HasFactory<CarFactory> */
     use HasFactory;
 
     protected static function boot()
     {
         parent::boot();
 
-        static::saving(function ($car) {
+        static::saving(function ($car): void {
             $car->slug = Str::slug($car->brand.'-'.$car->model);
         });
     }

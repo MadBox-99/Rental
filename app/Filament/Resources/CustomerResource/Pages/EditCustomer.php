@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\CustomerResource\Pages;
 
+use Filament\Actions\DeleteAction;
 use App\Filament\Resources\CustomerResource;
 use Filament\Actions;
 use Filament\Resources\Pages\EditRecord;
@@ -14,7 +15,7 @@ class EditCustomer extends EditRecord
     protected function getHeaderActions(): array
     {
         return [
-            Actions\DeleteAction::make(),
+            DeleteAction::make(),
         ];
     }
 
@@ -23,6 +24,7 @@ class EditCustomer extends EditRecord
         if (! isset($data['user_id'])) {
             $data['user_id'] = Auth::user()->id;
         }
+
         if ($data['user_id'] === null) {
             $data['user_id'] = Auth::user()->id;
         }

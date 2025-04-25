@@ -9,7 +9,7 @@ class CarDetails extends Component
 {
     public $car;
 
-    public function mount($slug)
+    public function mount($slug): void
     {
         $this->car = Car::whereSlug($slug)->first();
     }

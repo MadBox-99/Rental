@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\View\View;
 use App\Models\Availability;
 use App\Models\Car;
 use App\Models\Order;
@@ -55,23 +56,23 @@ class ReservationController extends BaseController
 
     public function availability()
     {
-        $cars = Car::with(['availabilities' => function ($query) {
+        $cars = Car::with(['availabilities' => function ($query): void {
             $query->whereBetween('date', [now()->startOfDay(), now()->addDays(30)->endOfDay()]);
         }])->get();
 
-        return view('csereauto-flotta', compact('cars'));
+        return view('csereauto-flotta', ['cars' => $cars]);
     }
 
     /**
      * Display a specific car's details.
      *
      * @param  int  $id
-     * @return \Illuminate\View\View
+     * @return View
      */
     public function show($id)
     {
         $car = Car::with('availabilities')->findOrFail($id);
 
-        return view('car-details', compact('car'));
+        return view('car-details', ['car' => $car]);
     }
 }

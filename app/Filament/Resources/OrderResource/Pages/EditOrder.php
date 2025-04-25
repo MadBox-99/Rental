@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\OrderResource\Pages;
 
+use Filament\Actions\DeleteAction;
 use App\Filament\Resources\OrderResource;
 use App\Models\Availability;
 use App\Models\Order;
@@ -21,7 +22,7 @@ class EditOrder extends EditRecord
     protected function getHeaderActions(): array
     {
         return [
-            Actions\DeleteAction::make(),
+            DeleteAction::make(),
             Action::make('Szerződés generálása')
                 ->action(function (Order $order) {
 
@@ -59,6 +60,7 @@ class EditOrder extends EditRecord
         if (! isset($data['user_id'])) {
             $data['user_id'] = Auth::user()->id;
         }
+
         if ($data['user_id'] === null) {
             $data['user_id'] = Auth::user()->id;
         }

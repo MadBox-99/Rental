@@ -15,6 +15,7 @@ class CreateCustomer extends CreateRecord
         if (! isset($data['user_id'])) {
             $data['user_id'] = Auth::user()->id;
         }
+
         if ($data['user_id'] === null) {
             $data['user_id'] = Auth::user()->id;
         }

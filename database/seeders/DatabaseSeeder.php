@@ -51,6 +51,7 @@ class DatabaseSeeder extends Seeder
             Permission::create(['guard_name' => GuardName::WEB->value, 'name' => $value.' Role']);
             Permission::create(['guard_name' => GuardName::WEB->value, 'name' => $value.' Permission']);
         }
+
         $admin->assignRole('admin');
         $service->assignRole('service');
         $adminRole->givePermissionTo(Permission::all());

@@ -12,12 +12,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('customers', function (Blueprint $table) {
+        Schema::create('customers', function (Blueprint $table): void {
             $table->id();
             $table->foreignIdFor(User::class)->nullable();
             $table->string('first_name')->nullable();
             $table->string('last_name')->nullable();
-            $table->string('full_name')->virtualAs('concat(first_name, \' \', last_name)');
+            $table->string('full_name')->virtualAs("concat(first_name, ' ', last_name)");
             $table->string('email')->unique()->nullable();
             $table->string('phone')->nullable();
             $table->string('address')->nullable(); // utca

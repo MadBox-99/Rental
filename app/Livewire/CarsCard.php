@@ -9,7 +9,7 @@ class CarsCard extends Component
 {
     public $cars;
 
-    public function mount()
+    public function mount(): void
     {
 
         $this->cars = Car::all();

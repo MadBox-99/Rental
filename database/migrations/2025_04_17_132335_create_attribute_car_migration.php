@@ -10,7 +10,7 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('attribute_car', function (Blueprint $table) {
+        Schema::create('attribute_car', function (Blueprint $table): void {
             $table->id();
             $table->foreignIdFor(Car::class);
             $table->foreignIdFor(Attribute::class);

@@ -25,7 +25,7 @@ class GenerateDailyAvailability extends Command
     /**
      * Execute the console command.
      */
-    public function handle()
+    public function handle(): void
     {
         $cars = Car::all();
 
