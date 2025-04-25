@@ -71,6 +71,7 @@ class UserResource extends Resource
                 Select::make('roles')
                     ->label('Szerepkörök')
                     ->multiple()
+                    ->preload()
                     ->relationship('roles', 'name'),
                 DateTimePicker::make('email_verified_at')
                     ->label('Email megerősítve'),
