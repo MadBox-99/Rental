@@ -140,6 +140,7 @@ class CustomerResource extends Resource
         })->columns([
             TextColumn::make('user.name')
                 ->numeric()
+                ->translateLabel()
                 ->sortable(),
             TextColumn::make('first_name')
                 ->translateLabel()
