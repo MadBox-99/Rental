@@ -2,13 +2,9 @@
 
 namespace App\Filament\Resources;
 
-use Filament\Tables\Actions\EditAction;
-use Filament\Tables\Actions\BulkActionGroup;
-use Filament\Tables\Actions\DeleteBulkAction;
-use App\Filament\Resources\CustomerResource\Pages\ListCustomers;
 use App\Filament\Resources\CustomerResource\Pages\CreateCustomer;
 use App\Filament\Resources\CustomerResource\Pages\EditCustomer;
-use App\Filament\Resources\CustomerResource\Pages;
+use App\Filament\Resources\CustomerResource\Pages\ListCustomers;
 use App\Models\Customer;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\FileUpload;
@@ -17,7 +13,9 @@ use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Forms\Get;
 use Filament\Resources\Resource;
-use Filament\Tables;
+use Filament\Tables\Actions\BulkActionGroup;
+use Filament\Tables\Actions\DeleteBulkAction;
+use Filament\Tables\Actions\EditAction;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
@@ -48,12 +46,12 @@ class CustomerResource extends Resource
                     ->default(Auth::user()->id),
                 TextInput::make('first_name')
                     ->live()
-                    ->label('Keresztnév')
+                    ->label('Vezetéknév')
                     ->required()
                     ->maxLength(255),
                 TextInput::make('last_name')
                     ->live()
-                    ->label('Vezetéknév')
+                    ->label('Keresztnév')
                     ->required()
                     ->maxLength(255),
                 TextInput::make('full_name')
@@ -144,18 +142,25 @@ class CustomerResource extends Resource
                 ->numeric()
                 ->sortable(),
             TextColumn::make('first_name')
+                ->translateLabel()
                 ->searchable(),
             TextColumn::make('last_name')
+                ->translateLabel()
                 ->searchable(),
-            TextColumn::make('email')
+            TextColumn::make('email')->translateLabel()
+                ->translateLabel()
                 ->searchable(),
-            TextColumn::make('phone')
+            TextColumn::make('phone')->translateLabel()
+                ->translateLabel()
                 ->searchable(),
-            TextColumn::make('address')
+            TextColumn::make('address')->translateLabel()
+                ->translateLabel()
                 ->searchable(),
-            TextColumn::make('city')
+            TextColumn::make('city')->translateLabel()
+                ->translateLabel()
                 ->searchable(),
-            TextColumn::make('postal_code')
+            TextColumn::make('postal_code')->translateLabel()
+                ->translateLabel()
                 ->searchable(),
             TextColumn::make('created_at')
                 ->dateTime()

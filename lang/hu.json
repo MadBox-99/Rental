@@ -1,5 +1,14 @@
 {
-"The email has already been taken.": "Ez az e-mail cím már használatban van."
+"The email has already been taken.": "Ez az e-mail cím már használatban van.",
+"First name": "Keresztnév",
+"Last name": "Vezetéknév",
+"Email": "E-mail",
+"City": "Város",
+"Postal code": "Irányítószám",
+"Address": "Cím",
+"Phone": "Telefon",
+"User":"Felhasználó"
+
 
 
 }
