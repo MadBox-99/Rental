@@ -23,11 +23,11 @@
         </ul>
 
         <!-- Call to Action Button -->
-        <div class="hidden md:block">
+        {{--   <div class="hidden md:block">
             <a wire:navigate href="/szerzodesek" class="bg-red-600 text-white px-4 py-2 rounded-full hover:bg-red-700">
                 Szerződés
             </a>
-        </div>
+        </div> --}}
 
         <!-- Mobile Menu Button -->
         <div class="md:hidden">
