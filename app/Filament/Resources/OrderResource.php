@@ -2,21 +2,17 @@
 
 namespace App\Filament\Resources;
 
-use Filament\Tables\Actions\EditAction;
-use Filament\Tables\Actions\BulkActionGroup;
-use Filament\Tables\Actions\DeleteBulkAction;
-use App\Filament\Resources\OrderResource\Pages\ListOrders;
 use App\Filament\Resources\OrderResource\Pages\CreateOrder;
 use App\Filament\Resources\OrderResource\Pages\EditOrder;
-use DateTimeInterface;
-use Carbon\WeekDay;
-use Carbon\Month;
-use App\Filament\Resources\OrderResource\Pages;
+use App\Filament\Resources\OrderResource\Pages\ListOrders;
 use App\Models\Availability;
 use App\Models\Car;
 use App\Models\Customer;
 use App\Models\Order;
 use Carbon\Carbon;
+use Carbon\Month;
+use Carbon\WeekDay;
+use DateTimeInterface;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Select;
@@ -25,7 +21,9 @@ use Filament\Forms\Components\TimePicker;
 use Filament\Forms\Form;
 use Filament\Forms\Get;
 use Filament\Resources\Resource;
-use Filament\Tables;
+use Filament\Tables\Actions\BulkActionGroup;
+use Filament\Tables\Actions\DeleteBulkAction;
+use Filament\Tables\Actions\EditAction;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Concerns\HasFilters;
 use Filament\Tables\Filters\Filter;
@@ -221,12 +219,12 @@ class OrderResource extends Resource
                             ->default(now()->format('Y-m')),
                     ])
                     ->query(function (Builder $query, array $data) {
-                        if (! empty($data['month'])) {
+                        /* if (! empty($data['month'])) {
                             $startOfMonth = Carbon::parse($data['month'])->startOfMonth();
                             $endOfMonth = Carbon::parse($data['month'])->endOfMonth();
 
                             return $query->whereBetween('start_date', [$startOfMonth, $endOfMonth]);
-                        }
+                        } */
                     }),
             ])
             ->actions([
