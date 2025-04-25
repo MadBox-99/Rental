@@ -41,8 +41,7 @@
         <div class="flex items-center space-x-2">
             <p>Weboldalt készítette:</p>
             <a href="#" class="text-blue-400 hover:underline flex items-center">
-                <img src="https://csereautoberles.hu/wp-content/uploads/2025/04/cegem360logo-white.webp" alt="céges360"
-                    class="h-5 mr-1">
+                <img src="{{ Storage::url('cegem360logo-white.webp') }}" alt="céges360" class="h-5 mr-1">
                 <span>céges360</span>
             </a>
         </div>
