@@ -5,7 +5,7 @@
                 <img src="{{ Storage::url('octavia.webp') }}" alt="Car Image" class="w-full h-auto object-cover">
                 <div class="absolute inset-0 flex flex-col items-center justify-center text-white">
                     <h1 class="text-4xl font-bold">CSEREAUTÓ FLOTTA</h1>
-                    <a href="#"
+                    <a href="{{ route('filament.admin.auth.login') }}"
                         class="mt-4 bg-red-500 text-white py-2 px-6 rounded-lg text-lg font-semibold">FOGLALJON MOST</a>
                 </div>
             </div>

@@ -2,13 +2,12 @@
 
 namespace App\Filament\Resources\OrderResource\Pages;
 
-use Filament\Actions\DeleteAction;
 use App\Filament\Resources\OrderResource;
 use App\Models\Availability;
 use App\Models\Order;
 use Barryvdh\DomPDF\Facade\Pdf;
-use Filament\Actions;
 use Filament\Actions\Action;
+use Filament\Actions\DeleteAction;
 use Filament\Notifications\Notification;
 use Filament\Resources\Pages\EditRecord;
 use Illuminate\Database\Eloquent\Model;
