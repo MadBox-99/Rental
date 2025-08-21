@@ -24,7 +24,7 @@ return [
     'scope_to_tenant' => true,
 
     'scope_roles_to_tenant' => true,
-    'scope_premissions_to_tenant' => false,
+    'scope_permissions_to_tenant' => false,
 
     'super_admin_role_name' => 'Super Admin',
 

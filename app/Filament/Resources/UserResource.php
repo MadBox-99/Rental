@@ -34,18 +34,7 @@ class UserResource extends Resource
 
     public static function form(Form $form): Form
     {
-        /**
-         *  'name',
-         * 'email',
 
-         *'password',
-         * 'company_name',
-         *'company_address',
-         * 'company_tax_number',
-         * 'company_registration_number',
-         * 'representative',
-         * 'contact_person',
-         * 'phone', */
         return $form
             ->schema([
                 TextInput::make('name')

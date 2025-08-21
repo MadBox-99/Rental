@@ -352,6 +352,13 @@
                 „Átadás-átvételi jegyzőkönyv” -ben leírt
                 állapotban, felszereltséggel és a tartozékkal.
             </p>
+            <p
+                style="font-size: 10px; text-align: justify; margin-bottom: 5px; font-weight: bold; color: #c0392b; background-color: #f9e6e6; padding: 8px; border-radius: 4px;">
+                A bérleti szerződés alapján a bérlés maximálisan 300 kilométer megtételére jogosítja fel a Bérlőt.
+                Amennyiben a Bérlő a bérleti időszak alatt a 300 kilométeres határt túllépi, úgy minden további megtett
+                kilométer után 45 Ft/km többletdíjat köteles megfizetni a Bérbeadó részére.
+            </p>
+
             <p style="font-size: 10px; text-align: justify; margin-bottom: 5px;">
                 A Bérlő tudomásul veszi, hogy a gépkocsit kifejezetten tilos különösen:
             </p>
