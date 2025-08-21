@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ReservationController;
 use App\Livewire\CarDetails;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -24,3 +25,12 @@ Route::get('/auto/{slug}', CarDetails::class)->name('cars.show');
 
 require __DIR__.'/settings.php';
 require __DIR__.'/auth.php';
+
+Route::get('/clear-cache', function () {
+    Artisan::call('cache:clear');
+    Artisan::call('config:cache');
+    Artisan::call('route:cache');
+    Artisan::call('view:cache');
+
+    return 'Cache cleared and regenerated!';
+})->middleware(['auth'])->name('cache.clear');
