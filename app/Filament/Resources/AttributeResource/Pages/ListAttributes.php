@@ -1,10 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Filament\Resources\AttributeResource\Pages;
 
-use Filament\Actions\CreateAction;
 use App\Filament\Resources\AttributeResource;
-use Filament\Actions;
+use Filament\Actions\CreateAction;
 use Filament\Resources\Pages\ListRecords;
 
 class ListAttributes extends ListRecords

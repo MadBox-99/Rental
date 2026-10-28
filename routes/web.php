@@ -26,7 +26,7 @@ Route::get('/auto/{slug}', CarDetails::class)->name('cars.show');
 require __DIR__.'/settings.php';
 require __DIR__.'/auth.php';
 
-Route::get('/clear-cache', function () {
+Route::get('/clear-cache', function (): string {
     Artisan::call('cache:clear');
     Artisan::call('config:cache');
     Artisan::call('route:cache');

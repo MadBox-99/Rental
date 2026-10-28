@@ -2,9 +2,8 @@
 
 namespace App\Filament\Resources\AvailabilityResource\Pages;
 
-use Filament\Actions\CreateAction;
 use App\Filament\Resources\AvailabilityResource;
-use Filament\Actions;
+use Filament\Actions\CreateAction;
 use Filament\Resources\Components\Tab;
 use Filament\Resources\Pages\ListRecords;
 

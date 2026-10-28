@@ -1,19 +1,19 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Filament\Resources;
 
-use Filament\Tables\Actions\EditAction;
-use Filament\Tables\Actions\BulkActionGroup;
-use Filament\Tables\Actions\DeleteBulkAction;
-use App\Filament\Resources\AttributeResource\Pages\ListAttributes;
 use App\Filament\Resources\AttributeResource\Pages\CreateAttribute;
 use App\Filament\Resources\AttributeResource\Pages\EditAttribute;
-use App\Filament\Resources\AttributeResource\Pages;
+use App\Filament\Resources\AttributeResource\Pages\ListAttributes;
 use App\Models\Attribute;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
-use Filament\Tables;
+use Filament\Tables\Actions\BulkActionGroup;
+use Filament\Tables\Actions\DeleteBulkAction;
+use Filament\Tables\Actions\EditAction;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 

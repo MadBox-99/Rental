@@ -2,13 +2,9 @@
 
 namespace App\Filament\Resources;
 
-use Filament\Tables\Actions\EditAction;
-use Filament\Tables\Actions\BulkActionGroup;
-use Filament\Tables\Actions\DeleteBulkAction;
-use App\Filament\Resources\CarResource\Pages\ListCars;
 use App\Filament\Resources\CarResource\Pages\CreateCar;
 use App\Filament\Resources\CarResource\Pages\EditCar;
-use App\Filament\Resources\CarResource\Pages;
+use App\Filament\Resources\CarResource\Pages\ListCars;
 use App\Models\Car;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\FileUpload;
@@ -19,7 +15,9 @@ use Filament\Forms\Form;
 use Filament\Forms\Get;
 use Filament\Forms\Set;
 use Filament\Resources\Resource;
-use Filament\Tables;
+use Filament\Tables\Actions\BulkActionGroup;
+use Filament\Tables\Actions\DeleteBulkAction;
+use Filament\Tables\Actions\EditAction;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Support\Str;

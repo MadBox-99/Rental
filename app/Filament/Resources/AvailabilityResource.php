@@ -2,25 +2,22 @@
 
 namespace App\Filament\Resources;
 
-use Filament\Forms\Components\Select;
-use Filament\Forms\Components\DatePicker;
-use Filament\Forms\Components\Toggle;
-use Filament\Tables\Columns\TextColumn;
-use Filament\Tables\Filters\Filter;
-use Filament\Tables\Filters\SelectFilter;
-use Filament\Tables\Actions\EditAction;
-use Filament\Tables\Actions\BulkActionGroup;
-use Filament\Tables\Actions\DeleteBulkAction;
-use App\Filament\Resources\AvailabilityResource\Pages\ListAvailabilities;
 use App\Filament\Resources\AvailabilityResource\Pages\CreateAvailability;
 use App\Filament\Resources\AvailabilityResource\Pages\EditAvailability;
-use App\Filament\Resources\AvailabilityResource\Pages;
+use App\Filament\Resources\AvailabilityResource\Pages\ListAvailabilities;
 use App\Models\Availability;
-use Filament\Forms;
+use Filament\Forms\Components\DatePicker;
+use Filament\Forms\Components\Select;
+use Filament\Forms\Components\Toggle;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
-use Filament\Tables;
+use Filament\Tables\Actions\BulkActionGroup;
+use Filament\Tables\Actions\DeleteBulkAction;
+use Filament\Tables\Actions\EditAction;
+use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\ToggleColumn;
+use Filament\Tables\Filters\Filter;
+use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 
 class AvailabilityResource extends Resource

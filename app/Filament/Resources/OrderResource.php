@@ -9,7 +9,6 @@ use App\Models\Availability;
 use App\Models\Car;
 use App\Models\Customer;
 use App\Models\Order;
-use Carbon\Carbon;
 use Carbon\Month;
 use Carbon\WeekDay;
 use DateTimeInterface;
@@ -30,6 +29,7 @@ use Filament\Tables\Filters\Filter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Date;
 
 class OrderResource extends Resource
 {
@@ -210,15 +210,15 @@ class OrderResource extends Resource
                         Select::make('month')
                             ->label('Válassz hónapot')
                             ->options(
-                                collect(range(0, 5))->mapWithKeys(function ($i) {
+                                collect(range(0, 5))->mapWithKeys(function ($i): array {
                                     $date = now()->addMonths($i);
 
                                     return [$date->format('Y-m') => $date->format('Y. F')];
-                                })->toArray()
+                                })->all()
                             )
                             ->default(now()->format('Y-m')),
                     ])
-                    ->query(function (Builder $query, array $data) {
+                    ->query(function (Builder $query, array $data): void {
                         /* if (! empty($data['month'])) {
                             $startOfMonth = Carbon::parse($data['month'])->startOfMonth();
                             $endOfMonth = Carbon::parse($data['month'])->endOfMonth();
@@ -255,12 +255,12 @@ class OrderResource extends Resource
 
     public static function getAvailableCarsData(DateTimeInterface|WeekDay|Month|string|int|float|null $month): array
     {
-        $startOfMonth = Carbon::parse($month)->startOfMonth();
-        $endOfMonth = Carbon::parse($month)->endOfMonth();
-        $dates = Carbon::parse($startOfMonth)->daysUntil($endOfMonth);
+        $startOfMonth = Date::parse($month)->startOfMonth();
+        $endOfMonth = Date::parse($month)->endOfMonth();
+        $dates = Date::parse($startOfMonth)->daysUntil($endOfMonth);
 
         $cars = Car::all()->map(function ($car) use ($dates): Car {
-            $car->availability = $dates->map(function ($date) use ($car) {
+            $car->availability = $dates->map(function ($date) use ($car): array {
                 $isAvailable = ! $car->availabilities->whereDate('date', '<=', $date)
                     ->whereDate('date', '>=', $date)
                     ->exists();

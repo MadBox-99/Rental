@@ -1,10 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Filament\Resources\LocationResource\Pages;
 
-use Filament\Actions\DeleteAction;
 use App\Filament\Resources\LocationResource;
-use Filament\Actions;
+use Filament\Actions\DeleteAction;
 use Filament\Resources\Pages\EditRecord;
 
 class EditLocation extends EditRecord

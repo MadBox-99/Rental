@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\View\View;
 use App\Models\Availability;
 use App\Models\Car;
 use App\Models\Order;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as BaseController;
+use Illuminate\View\View;
 
 class ReservationController extends BaseController
 {
@@ -20,9 +20,9 @@ class ReservationController extends BaseController
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'car_id' => 'required|exists:cars,id',
-            'pickup_time' => 'required|date|after:now',
-            'dropoff_time' => 'required|date|after:pickup_time',
+            'car_id' => ['required', 'exists:cars,id'],
+            'pickup_time' => ['required', 'date', 'after:now'],
+            'dropoff_time' => ['required', 'date', 'after:pickup_time'],
         ]);
 
         // Számítsuk ki a foglalás napjait
@@ -57,7 +57,7 @@ class ReservationController extends BaseController
     public function availability()
     {
         $cars = Car::with(['availabilities' => function ($query): void {
-            $query->whereBetween('date', [now()->startOfDay(), now()->addDays(30)->endOfDay()]);
+            $query->whereBetween('date', [today(), now()->addDays(30)->endOfDay()]);
         }])->get();
 
         return view('csereauto-flotta', ['cars' => $cars]);
